@@ -1,0 +1,7 @@
+<AssignMessage name="AssignMessage.SetTargetResource">
+	<AssignVariable>
+		<Name>flow.target.resource</Name>
+		<Ref>request.queryparam.date</Ref>
+		<Value>latest</Value>
+	</AssignVariable>
+</AssignMessage>

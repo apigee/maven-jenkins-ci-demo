@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+
+    <Flows>
+
+        <Flow name="Get Exchange Rates">
+            <Condition>
+                (request.verb = "GET") and 
+                (proxy.pathsuffix MatchesPath "/rates")
+            </Condition>
+            <Request>
+                <Step>
+                    <Name>AssignMessage.SetTargetResource</Name>
+                </Step>
+            </Request>
+        </Flow>
+
+    </Flows>
+
+    <RouteRule name="default">
+        <TargetEndpoint>default</TargetEndpoint>
+    </RouteRule>
+
+    <HTTPProxyConnection>
+        <BasePath>/currency/v1</BasePath>
+        <VirtualHost>secure</VirtualHost>
+    </HTTPProxyConnection>
+</ProxyEndpoint>

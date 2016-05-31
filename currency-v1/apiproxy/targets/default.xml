@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="default">
+
+	<PostFlow>
+		<Request>
+			<Step>
+				<Name>JavaScript.ConfigureTargetRequest</Name>
+			</Step>
+		</Request>
+	</PostFlow>
+
+	<HTTPTargetConnection>
+		<Properties>
+			<Property name="success.codes">2XX,4XX,5XX</Property>
+		</Properties>
+		<URL>http://api.fixer.io/{flow.target.resource}</URL>
+	</HTTPTargetConnection>
+
+</TargetEndpoint>
