@@ -25,7 +25,6 @@ module.exports = function() {
 		var assertion = this.apickli.assertPathInResponseBodyMatchesExpression('$.base', baseCurrency);
 		if (!assertion.success) {
 			callback(JSON.stringify(assertion));
-			return;
 		} else {
 			callback();
 		}
@@ -49,7 +48,6 @@ module.exports = function() {
 		var assertion = this.apickli.assertPathInResponseBodyMatchesExpression('$.date', date);
 		if (!assertion.success) {
 			callback(JSON.stringify(assertion));
-			return;
 		} else {
 			callback();
 		}
