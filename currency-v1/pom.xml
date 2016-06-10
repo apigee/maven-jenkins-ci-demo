@@ -5,7 +5,7 @@
 	<groupId>apigee</groupId>
 	<artifactId>currency-v1</artifactId>
 	<version>-</version>
-	<name>currency-${user.name}v1</name>
+	<name>currency-${deployment.suffix}v1</name>
 	<packaging>pom</packaging>
 
 	<pluginRepositories>
@@ -29,6 +29,7 @@
 		<org.slf4j.simpleLogger.defaultLogLevel>info</org.slf4j.simpleLogger.defaultLogLevel>
 		<project.root.dir>${basedir}</project.root.dir>
 		<target.root.dir>${basedir}/target</target.root.dir>
+		<deployment.suffix>${user.name}</deployment.suffix>
 	</properties>
 
 	<!-- This is where you add the environment specific properties under various profile names -->
@@ -154,7 +155,7 @@
 					<replacements>
 						<replacement>
 							<token>/currency/v1</token>
-							<value>/currency/${user.name}v1</value>
+							<value>/currency/${deployment.suffix}v1</value>
 						</replacement>
 						<replacement>
 							<token>demo-test.apigee.net</token>
