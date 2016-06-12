@@ -39,7 +39,7 @@
 		<groupId>apigee</groupId>
 		<artifactId>currency-v1</artifactId>
 	</rootModule>
-	<goals>install -Ptest -Ddeployment.suffix=</goals>
+	<goals>install -Ptest -Ddeployment.suffix= -Dcommit=${GIT_COMMIT} -Dbranch=${GIT_BRANCH}</goals>
 	<aggregatorStyleBuild>true</aggregatorStyleBuild>
 	<incrementalBuild>false</incrementalBuild>
 	<ignoreUpstremChanges>true</ignoreUpstremChanges>
