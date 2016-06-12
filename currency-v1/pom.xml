@@ -60,7 +60,8 @@
 				<apigee.org>${env.APIGEE_ORG}</apigee.org>
 				<apigee.username>${env.APIGEE_USERNAME}</apigee.username>
 				<apigee.password>${env.APIGEE_PASSWORD}</apigee.password>
-				<apigee.options>update</apigee.options>
+				<apigee.options>override</apigee.options>
+				<apigee.override.delay>5</apigee.override.delay>
 				<api.northbound.domain>${env.API_DOMAIN_PROD}</api.northbound.domain>
 				<api.testtag>~@wip,~@mock</api.testtag>
 			</properties>
