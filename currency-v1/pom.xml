@@ -152,6 +152,7 @@
 					<includes>
 						<include>apiproxy/proxies/default.xml</include>
 						<include>test/test-config.json</include>
+						<include>apiproxy/currency-v1.xml</include>
 					</includes>
 					<replacements>
 						<replacement>
@@ -161,6 +162,10 @@
 						<replacement>
 							<token>demo-test.apigee.net</token>
 							<value>${api.northbound.domain}</value>
+						</replacement>
+						<replacement>
+							<token>@description</token>
+							<value>commit ${GIT_COMMIT} from ${GIT_BRANCH} branch</value>
 						</replacement>
 					</replacements>
 				</configuration>
