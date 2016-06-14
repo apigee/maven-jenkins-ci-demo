@@ -1,0 +1,19 @@
+<RaiseFault name="RaiseFault.Json">
+	<FaultResponse>
+		<Set>
+			<Headers>
+				<Header name="Content-Type">application/json</Header>
+			</Headers>
+			<Payload contentType="application/json" variablePrefix="@" variableSuffix="#">
+				{
+					"code": "@flow.apigee.error.code#",
+					"message": "@flow.apigee.error.message#",
+					"info": "@flow.apigee.error.info#"
+				}
+			</Payload>
+			<StatusCode>{flow.apigee.error.status}</StatusCode>
+			<ReasonPhrase>{flow.apigee.error.reason}</ReasonPhrase>
+		</Set>
+	</FaultResponse>
+	<IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

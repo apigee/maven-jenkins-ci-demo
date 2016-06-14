@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <TargetEndpoint name="default">
 
+	<FaultRules>
+		<FaultRule name="Target 422">
+			<Condition>
+				(response.status.code = 422)
+			</Condition>
+			<Step>
+				<Name>AssignMessage.SetResponseContentTypeToJson</Name>
+			</Step>
+			<Step>
+				<Name>ExtractVariables.GetTargetErrorMessage</Name>
+			</Step>
+			<Step>
+				<Name>AssignMessage.SetTarget422ErrorVariables</Name>
+			</Step>
+		</FaultRule>
+		<FaultRule name="Target 404">
+			<Condition>
+				(response.status.code = 404)
+			</Condition>
+			<Step>
+				<Name>AssignMessage.SetTarget404ErrorVariables</Name>
+			</Step>
+		</FaultRule>
+	</FaultRules>
+
+	<Flows>
+		<Flow name="Get Exchange Rates">
+			<Condition>
+				(request.verb = "GET") and 
+				(proxy.pathsuffix MatchesPath "/rates")
+			</Condition>
+			<Request>
+				<Step>
+					<Name>AssignMessage.SetTargetResource</Name>
+				</Step>
+			</Request>
+		</Flow>
+	</Flows>
+
 	<PostFlow>
 		<Request>
 			<Step>
@@ -10,9 +49,6 @@
 	</PostFlow>
 
 	<HTTPTargetConnection>
-		<Properties>
-			<Property name="success.codes">2XX,4XX,5XX</Property>
-		</Properties>
 		<URL>http://api.fixer.io/{flow.target.resource}</URL>
 	</HTTPTargetConnection>
 

@@ -1,0 +1,10 @@
+<ExtractVariables name="ExtractVariables.GetTargetErrorMessage">
+	<Source>response</Source>
+	<VariablePrefix>flow.apigee.response</VariablePrefix>
+
+	<JSONPayload>
+		<Variable name="error" type="string">
+			<JSONPath>$.error</JSONPath>
+		</Variable>
+	</JSONPayload>
+</ExtractVariables>

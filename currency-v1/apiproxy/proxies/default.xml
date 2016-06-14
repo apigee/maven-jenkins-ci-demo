@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ProxyEndpoint name="default">
 
-    <Flows>
+	<DefaultFaultRule name="all">
+		<AlwaysEnforce>true</AlwaysEnforce>
 
-        <Flow name="Get Exchange Rates">
-            <Condition>
-                (request.verb = "GET") and 
-                (proxy.pathsuffix MatchesPath "/rates")
-            </Condition>
-            <Request>
-                <Step>
-                    <Name>AssignMessage.SetTargetResource</Name>
-                </Step>
-            </Request>
-        </Flow>
+		<Step>
+			<Condition>flow.apigee.error.code = null</Condition>
+			<Name>AssignMessage.SetInternalServerErrorVariables</Name>
+		</Step>
+		<Step>
+			<Name>RaiseFault.Json</Name>
+		</Step>
+	</DefaultFaultRule>
 
-    </Flows>
+	<RouteRule name="default">
+		<TargetEndpoint>default</TargetEndpoint>
+	</RouteRule>
 
-    <RouteRule name="default">
-        <TargetEndpoint>default</TargetEndpoint>
-    </RouteRule>
-
-    <HTTPProxyConnection>
-        <BasePath>/currency/v1</BasePath>
-        <VirtualHost>secure</VirtualHost>
-    </HTTPProxyConnection>
+	<HTTPProxyConnection>
+		<BasePath>/currency/v1</BasePath>
+		<VirtualHost>secure</VirtualHost>
+	</HTTPProxyConnection>
 </ProxyEndpoint>

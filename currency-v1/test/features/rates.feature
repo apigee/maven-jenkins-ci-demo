@@ -3,30 +3,53 @@ Feature: Get Currency Rates Feature
 	I want to get currency rates for a base currency
 	So I can do accurate currency exchange
 
-	Scenario: Default base currency should be EUR and default date should be today
-		When I request all exchange rates
-		Then I should get EUR as the base currency
-		And rates should be for today
-		And api should respond with correct message structure
+	Scenario: Default base currency should be EUR and default date should be "latest"
+		When I request all exchange rates with default values
+		Then I should see EUR as the base currency
+		And I should see the rates for the latest exchange day
 
 	Scenario: I should be able to set a different base currency
-		Given I want GBP as the base currency
-		When I request all exchange rates
-		Then I should get GBP as the base currency
-		And rates should be for today
-		And api should respond with correct message structure
+		When I request all exchange rates with GBP as the base currency
+		Then I should see GBP as the base currency
+		And I should see the rates for the latest exchange day
 
-	Scenario: I should be able to set a different exchange day
-		Given I want to see rates for 2016-05-03
-		When I request all exchange rates
-		Then I should get EUR as the base currency
-		And rates should be for 2016-05-03
-		And api should respond with correct message structure
+	Scenario Outline: I should be able to set an exchange day
+		When I request all exchange rates for <requested_date>
+		Then I should see EUR as the base currency
+		And I should see the rates for <response_date>
+
+		Examples:
+			| requested_date | response_date |
+			| 2016-06-14     | 2016-06-14    |
+			| 2016-06-13     | 2016-06-13    |
+			| 2016-06-12     | 2016-06-10    |
+			| 2016-06-11     | 2016-06-10    |
+			| 2016-06-10     | 2016-06-10    |
 
 	Scenario: I should be able to set a base currency and exchange day
-		Given I want GBP as the base currency
-		And I want to see rates for 2016-05-10
-		When I request all exchange rates
-		Then I should get GBP as the base currency
-		And rates should be for 2016-05-10
-		And api should respond with correct message structure
+		When I request all exchange rates with GBP as the base currency for 2016-05-10
+		Then I should see GBP as the base currency
+		And I should see the rates for 2016-05-10
+
+	Scenario: I should get an error for invalid currency
+		When I request all exchange rates with bla as the base currency
+		Then I should get a 400 error with "Invalid base" message and code "400.01.001"
+
+	Scenario: I should get an error for very old date
+		When I request all exchange rates for 1940-01-01
+		Then I should get a 400 error with "Date too old" message and code "400.01.001"
+
+	Scenario Outline: I should get an error for invalid date format
+		When I request all exchange rates for <invalid_date>
+		Then I should get a 400 error with "Invalid date" message and code "400.01.001"
+
+		Examples:
+			| invalid_date |
+			| 2            |
+			| 20           |
+			| 2016         |
+			| 2016-        |
+			| 2016-01      |
+			| 2016-01-     |
+			| 2016-01-1    |
+			| abcd         |

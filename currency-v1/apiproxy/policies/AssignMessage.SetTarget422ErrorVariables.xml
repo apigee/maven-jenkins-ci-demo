@@ -1,0 +1,28 @@
+<AssignMessage name="AssignMessage.SetTarget422ErrorVariables">
+
+	<AssignVariable>
+		<Name>flow.apigee.error.code</Name>
+		<Value>400.01.001</Value>
+	</AssignVariable>
+
+	<AssignVariable>
+		<Name>flow.apigee.error.message</Name>
+		<Ref>flow.apigee.response.error</Ref>
+	</AssignVariable>
+
+	<AssignVariable>
+		<Name>flow.apigee.error.info</Name>
+		<Value>https://developers.apigee.com/errors/400.01.001</Value>
+	</AssignVariable>
+
+	<AssignVariable>
+		<Name>flow.apigee.error.status</Name>
+		<Value>400</Value>
+	</AssignVariable>
+
+	<AssignVariable>
+		<Name>flow.apigee.error.reason</Name>
+		<Value>Bad Request</Value>
+	</AssignVariable>
+
+</AssignMessage>

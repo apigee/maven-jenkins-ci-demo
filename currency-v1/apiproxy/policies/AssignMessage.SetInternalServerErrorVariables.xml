@@ -1,0 +1,28 @@
+<AssignMessage name="AssignMessage.SetInternalServerErrorVariables">
+
+	<AssignVariable>
+		<Name>flow.apigee.error.code</Name>
+		<Value>500.01.001</Value>
+	</AssignVariable>
+
+	<AssignVariable>
+		<Name>flow.apigee.error.message</Name>
+		<Value>internal server error</Value>
+	</AssignVariable>
+
+	<AssignVariable>
+		<Name>flow.apigee.error.info</Name>
+		<Value>https://developers.apigee.com</Value>
+	</AssignVariable>
+
+	<AssignVariable>
+		<Name>flow.apigee.error.status</Name>
+		<Value>500</Value>
+	</AssignVariable>
+
+	<AssignVariable>
+		<Name>flow.apigee.error.reason</Name>
+		<Value>Internal Server Error</Value>
+	</AssignVariable>
+
+</AssignMessage>

@@ -1,56 +1,104 @@
 /* jslint node: true */
 'use strict';
 
-var getTodaysDate = function() {
-	return new Date().toISOString().substring(0, 10);
+var Promise = require('bluebird');
+
+var assertSuccessfulApiResponse = function(apickli) {
+	return new Promise(function(resolve, reject) {
+		if (!apickli.scenarioVariables.isResponseSuccessful) {
+			var assertion = apickli.assertResponseCode("200");
+			if (!assertion.success) {
+				return reject(assertion);
+			}
+
+			apickli.validateResponseWithSchema('rates.schema', function(assertion) {
+				if (!assertion.success) {
+					apickli.scenarioVariables.isResponseSuccessful = true;
+					return reject(assertion);
+				} else {
+					return resolve();
+				}
+			});
+		} else {
+			return resolve();
+		}
+	});
 };
 
 module.exports = function() {
 
-	this.Given(/^I want (.*) as the base currency$/, function(baseCurrency, callback) {
-		this.apickli.queryParameters.base = baseCurrency;
-		callback();
-	});
-
-	this.Given(/^I want to see rates for (.*)$/, function(date, callback) {
-		this.apickli.queryParameters.date = date;
-		callback();
-	});
-
-	this.When(/^I request all exchange rates$/, function(callback) {
+	this.When(/^I request all exchange rates with default values$/, function(callback) {
 		this.apickli.get('/rates', callback);
 	});
 
-	this.Then(/^I should get (.*) as the base currency$/, function(baseCurrency, callback) {
-		var assertion = this.apickli.assertPathInResponseBodyMatchesExpression('$.base', baseCurrency);
-		if (!assertion.success) {
-			callback(JSON.stringify(assertion));
-		} else {
-			callback();
-		}
+	this.When(/^I request all exchange rates with (.{3}) as the base currency$/, function(base, callback) {
+		this.apickli.queryParameters.base = base;
+		this.apickli.get('/rates', callback);
 	});
 
-	this.Then(/^api should respond with correct message structure$/, function(callback) {
-		this.apickli.validateResponseWithSchema('rates.schema', function(assertion) {
+	this.When(/^I request all exchange rates for (.*)$/, function(date, callback) {
+		this.apickli.queryParameters.date = date;
+		this.apickli.get('/rates', callback);
+	});
+
+	this.When(/^I request all exchange rates with (.{3}) as the base currency for (.*)$/, function(base, date, callback) {
+		this.apickli.queryParameters.base = base;
+		this.apickli.queryParameters.date = date;
+		this.apickli.get('/rates', callback);
+	});
+
+	this.Then(/^I should see (.*) as the base currency$/, function(base, callback) {
+		var self = this;
+		assertSuccessfulApiResponse(this.apickli)
+		.then(function() {
+			var assertion = self.apickli.assertPathInResponseBodyMatchesExpression('$.base', base);
 			if (assertion.success) {
 				callback();
 			} else {
 				callback(JSON.stringify(assertion));
 			}
+		})
+		.catch(function(assertion) {
+			callback(JSON.stringify(assertion));
 		});
 	});
 
-	this.Then(/^rates should be for (.*)$/, function(date, callback) {
-		if (date === 'today') {
-			date = getTodaysDate();
-		}
+	this.Then(/^I should see the rates for the latest exchange day$/, function(callback) {
+		var self = this;
+		assertSuccessfulApiResponse(this.apickli)
+		.then(function() {
+			var response = JSON.parse(self.apickli.getResponseObject().body);
+			var dateInResponse = new Date(response.date);
 
-		var assertion = this.apickli.assertPathInResponseBodyMatchesExpression('$.date', date);
-		if (!assertion.success) {
+			var today = new Date();
+			var toDate = new Date();
+			var fromDate = new Date(today.setTime( today.getTime() - 3 * 86400000 ));
+
+			if ((dateInResponse >= fromDate) && (dateInResponse <= toDate)) {
+				callback();
+			} else {
+				callback('response date ' + dateInResponse + ' is not in acceptance range');
+			}
+		})
+		.catch(function(assertion) {
 			callback(JSON.stringify(assertion));
-		} else {
-			callback();
-		}
+		});
+	});
+
+	this.Then(/^I should see the rates for (\d{4}-\d{2}-\d{2})$/, function(date, callback) {
+		var self = this;
+		assertSuccessfulApiResponse(this.apickli)
+		.then(function() {
+			var assertion = self.apickli.assertPathInResponseBodyMatchesExpression('$.date', date);
+			if (assertion.success) {
+				callback();
+			} else {
+				callback(JSON.stringify(assertion));
+			}
+		})
+		.catch(function(assertion) {
+			callback(JSON.stringify(assertion));
+		});
 	});
 
 };
