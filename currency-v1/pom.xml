@@ -126,7 +126,7 @@
 									<filtering>true</filtering>
 									<includes>
 										<include>apiproxy/**</include>
-										<include>test/**</include>
+										<include>test/integration/**</include>
 									</includes>
 								</resource>
 							</resources>
@@ -154,7 +154,7 @@
 					<includes>
 						<include>apiproxy/proxies/default.xml</include>
 						<include>apiproxy/proxies/loggly.xml</include>
-						<include>test/test-config.json</include>
+						<include>test/integration/test-config.json</include>
 						<include>apiproxy/currency-v1.xml</include>
 					</includes>
 					<replacements>
@@ -201,23 +201,10 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.3.2</version>
 				<executions>
-					<execution>
-						<id>unit</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-                            <executable>mocha</executable>
-							<commandlineArgs>
-								test/unit
-							</commandlineArgs>
-						</configuration>
-					</execution>
 					<!-- npm install -->
 					<execution>
 						<id>npm-install</id>
-						<phase>compile</phase>
+						<phase>validate</phase>
 						<goals>
 							<goal>exec</goal>
 						</goals>
@@ -225,6 +212,20 @@
 							<executable>npm</executable>
 							<commandlineArgs>
 								install
+							</commandlineArgs>
+						</configuration>
+					</execution>
+					<!-- run unit tests -->
+					<execution>
+						<id>unit</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>./node_modules/mocha/bin/mocha</executable>
+							<commandlineArgs>
+								test/unit
 							</commandlineArgs>
 						</configuration>
 					</execution>
