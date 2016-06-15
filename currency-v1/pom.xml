@@ -201,6 +201,19 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.3.2</version>
 				<executions>
+					<execution>
+						<id>unit</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+                            <executable>mocha</executable>
+							<commandlineArgs>
+								test/unit
+							</commandlineArgs>
+						</configuration>
+					</execution>
 					<!-- npm install -->
 					<execution>
 						<id>npm-install</id>
@@ -225,7 +238,7 @@
 						<configuration>
 							<executable>./node_modules/cucumber/bin/cucumber.js</executable>
 							<commandlineArgs>
-								target/test/features --tags ${api.testtag}
+								target/test/integration/features --tags ${api.testtag}
 							</commandlineArgs>
 						</configuration>
 					</execution>

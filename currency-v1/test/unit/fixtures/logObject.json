@@ -1,0 +1,15 @@
+{
+	"org": "demoorg",
+	"env": "test",
+	"api": "currency-v1",
+	"request": {
+		"resource": "/rates",
+		"query": "a=a&b=b",
+		"verb": "GET"
+	},
+	"error": {
+		"status": "404",
+		"code": "404.01.001",
+		"message": "resource not found"
+	}
+}

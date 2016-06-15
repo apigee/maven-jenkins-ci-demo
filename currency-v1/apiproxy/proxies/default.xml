@@ -9,9 +9,20 @@
 			<Name>AssignMessage.SetInternalServerErrorVariables</Name>
 		</Step>
 		<Step>
+			<Name>JavaScript.LogToLoggly</Name>
+		</Step>
+		<Step>
 			<Name>RaiseFault.Json</Name>
 		</Step>
 	</DefaultFaultRule>
+
+	<PreFlow>
+		<Request>
+			<Step>
+				<Name>AssignMessage.CopyRequest</Name>
+			</Step>
+		</Request>
+	</PreFlow>
 
 	<Flows>
 		<Flow name="Get Exchange Rates">

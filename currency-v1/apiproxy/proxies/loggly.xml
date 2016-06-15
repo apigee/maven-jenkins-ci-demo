@@ -5,7 +5,7 @@
 		<Flow name="POST log message">
 			<Condition>
 				(request.verb = "POST") and 
-				(proxy.pathsuffix MatchesPath "/logs")
+				(proxy.pathsuffix MatchesPath "/")
 			</Condition>
 			<Response>
 				<Step>
@@ -19,7 +19,7 @@
 	</RouteRule>
 
 	<HTTPProxyConnection>
-		<BasePath>/currency/v1</BasePath>
+		<BasePath>/currency/v1/logs</BasePath>
 		<VirtualHost>secure</VirtualHost>
 	</HTTPProxyConnection>
 </ProxyEndpoint>
