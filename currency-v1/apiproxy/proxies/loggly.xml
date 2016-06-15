@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="loggly">
+
+	<Flows>
+		<Flow name="POST log message">
+			<Condition>
+				(request.verb = "POST") and 
+				(proxy.pathsuffix MatchesPath "/")
+			</Condition>
+			<Response>
+				<Step>
+					<Name>AssignMessage.SetLogglyResponse</Name>
+				</Step>
+			</Response>
+		</Flow>
+	</Flows>
+
+	<RouteRule name="empty">
+	</RouteRule>
+
+	<HTTPProxyConnection>
+		<BasePath>/currency/v1/logs</BasePath>
+		<VirtualHost>secure</VirtualHost>
+	</HTTPProxyConnection>
+</ProxyEndpoint>

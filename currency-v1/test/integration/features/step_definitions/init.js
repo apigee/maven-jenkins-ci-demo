@@ -11,7 +11,7 @@ module.exports = function() {
 	this.Before(function(scenario, callback) {
 		this.apickli = new apickli.Apickli('https',
 										   config.currencyApi.domain + config.currencyApi.basepath,
-										   './test/features/fixtures/');
+										   './test/integration/features/fixtures/');
 		callback();
 	});
 };
