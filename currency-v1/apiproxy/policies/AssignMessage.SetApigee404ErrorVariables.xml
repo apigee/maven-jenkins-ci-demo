@@ -1,0 +1,28 @@
+<AssignMessage name="AssignMessage.SetApigee404ErrorVariables">
+
+	<AssignVariable>
+		<Name>flow.apigee.error.code</Name>
+		<Value>404.01.001</Value>
+	</AssignVariable>
+
+	<AssignVariable>
+		<Name>flow.apigee.error.message</Name>
+		<Value>Resource not found</Value>
+	</AssignVariable>
+
+	<AssignVariable>
+		<Name>flow.apigee.error.info</Name>
+		<Value>https://developers.apigee.com/errors/404.01.001</Value>
+	</AssignVariable>
+
+	<AssignVariable>
+		<Name>flow.apigee.error.status</Name>
+		<Value>404</Value>
+	</AssignVariable>
+
+	<AssignVariable>
+		<Name>flow.apigee.error.reason</Name>
+		<Value>Not Found</Value>
+	</AssignVariable>
+
+</AssignMessage>

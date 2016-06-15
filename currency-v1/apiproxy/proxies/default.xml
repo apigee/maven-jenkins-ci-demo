@@ -13,6 +13,26 @@
 		</Step>
 	</DefaultFaultRule>
 
+	<Flows>
+		<Flow name="Get Exchange Rates">
+			<Condition>
+				(request.verb = "GET") and 
+				(proxy.pathsuffix MatchesPath "/rates")
+			</Condition>
+		</Flow>
+
+		<Flow name="404">
+			<Request>
+				<Step>
+					<Name>AssignMessage.SetApigee404ErrorVariables</Name>
+				</Step>
+				<Step>
+					<Name>RaiseFault.GoToFaultRules</Name>
+				</Step>
+			</Request>
+		</Flow>
+	</Flows>
+
 	<RouteRule name="default">
 		<TargetEndpoint>default</TargetEndpoint>
 	</RouteRule>
