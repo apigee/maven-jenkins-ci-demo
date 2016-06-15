@@ -153,6 +153,7 @@
 					<basedir>${target.root.dir}</basedir>
 					<includes>
 						<include>apiproxy/proxies/default.xml</include>
+						<include>apiproxy/proxies/loggly.xml</include>
 						<include>test/test-config.json</include>
 						<include>apiproxy/currency-v1.xml</include>
 					</includes>
