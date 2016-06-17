@@ -55,7 +55,20 @@
 	<settings class="jenkins.mvn.DefaultSettingsProvider"/>
 	<globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
 	<reporters/>
-	<publishers/>
+	<publishers>
+		<hudson.plugins.git.GitPublisher plugin="git@2.4.4">
+			<configVersion>2</configVersion>
+			<pushMerge>false</pushMerge>
+			<pushOnlyIfSuccess>true</pushOnlyIfSuccess>
+			<forcePush>false</forcePush>
+			<branchesToPush>
+				<hudson.plugins.git.GitPublisher_-BranchToPush>
+					<targetRepoName>origin</targetRepoName>
+					<branchName>prod</branchName>
+				</hudson.plugins.git.GitPublisher_-BranchToPush>
+			</branchesToPush>
+		</hudson.plugins.git.GitPublisher>
+	</publishers>
 	<buildWrappers/>
 	<prebuilders/>
 	<postbuilders/>

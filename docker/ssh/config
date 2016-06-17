@@ -1,0 +1,6 @@
+Host github.com
+	IdentitiesOnly yes
+	Hostname github.com
+	User git
+	IdentityFile /usr/share/jenkins/ssh/id_rsa
+	UserKnownHostsFile /usr/share/jenkins/ssh/known_hosts
