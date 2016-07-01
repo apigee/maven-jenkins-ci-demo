@@ -1,6 +1,6 @@
 # Usage
 
-This document assumes you have followed the [setup](./setup.md) procedures and
+This document assumes you have followed the [setup](setup.md) procedures and
 have a running Jenkins instance using Docker.
 
 ## Setup production branch
