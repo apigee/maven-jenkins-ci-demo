@@ -13,7 +13,7 @@ locally and push it back to another remote repo.
 
 ## Setup authentication
 
-[Jenkins build pipeline](./jenkins-pipeline.md) that is demonstrated pushes
+[Jenkins build pipeline](jenkins-pipeline.md) that is demonstrated pushes
 code from `master` to `prod` branches when master job completes successfully.
 `git push` operation requires write access to remote repo.
 
@@ -29,7 +29,7 @@ There are three main ways for Jenkins to get authenticated to a remote git repo:
     for this demonstration and also the one that is well-known in community.
 
 SSH public/private key pairs can be found under [docker/ssh
-folder](../docker/ssh).
+folder](docker/ssh).
 
 ### Setup ssh access
 
@@ -40,7 +40,7 @@ option.
 
 Basically all you need to do is to go to the settings page of the target repo
 and click `Deploy Keys` on the left-hand menu. Copy paste the contents of the
-[public key](../docker/ssh/id_rsa.pub) as a new key.
+[public key](docker/ssh/id_rsa.pub) as a new key.
 
 ## Docker
 
@@ -49,7 +49,7 @@ before continuing next steps.
 
 ## Create Jenkins image
 
-Project includes a [Dockerfile](../docker/Dockerfile) that creates a Docker
+Project includes a [Dockerfile](docker/Dockerfile) that creates a Docker
 image using Jenkins official Docker image as base. It also sets up required
 Jenkins plugins and copies job configurations to the image.
 
@@ -70,12 +70,11 @@ Note: remove any previous currency-v1 deployments from the Apigee org in order
 to demonstrate proxies created successfully with correct revision numbers.
 
 All parameters required to run Jenkins and Maven are supplied using environment
-variables. Please see the list of [environment
-variables](./environment-variables.md) for more information. These variables are
-set directly to the docker container with the run command below.
+variables. These variables are set directly to the docker container with the
+docker run command.
 
 There is a script provided to make this process easier which can be found
-[here](../setup/run-image.sh). Modify this script to provide values specific to
+[here](setup/run-image.sh). Modify this script to provide values specific to
 your setup and execute the script to run the image.
 
 Please note that `setup/run-image.sh` script is in source control. Copy this
@@ -106,4 +105,4 @@ Please note that as Jenkins jobs are setup to trigger every minute, Jenkins will
 run all jobs configured upon start. However all jobs will fail as we don't yet
 have feature and production branches configured.
 
-Please follow [usage](./usage.md) to see Jenkins in action.
+Please follow [usage](usage.md) to see Jenkins in action.
