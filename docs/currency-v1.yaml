@@ -1,0 +1,57 @@
+swagger: '2.0'
+
+info:
+  version: "0.0.1"
+  title: Currency API for Apigee CI
+  
+host: demo-test.apigee.net
+basePath: /currency/v1
+schemes:
+  - https
+
+paths:
+  /rates:
+    get:
+      description: Returns exchange rate for a base currency and date
+      operationId: getExchangeRates
+      produces: 
+        - application/json
+      parameters:
+        - in: query
+          name: base
+          type: string
+          description: |
+            Base currency to use for rate calculation.
+            Default value is "EUR".
+          required: false
+        - in: query
+          name: date
+          type: string
+          description: |
+            Exchange rate date in YYYY-MM-DD format.
+            Default is "latest" which means:
+            * Rates for friday if date is weekend
+            * Rates for yesterday if current time is before 15:00 CET
+            * Otherwise current rates
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: "#/definitions/ratesResponse"
+            
+definitions:
+  ratesResponse:
+    type: object
+    properties:
+      base:
+        type: string
+      date:
+        type: string
+      rates:
+        type: object
+        items:
+          $ref: "#/definitions/rates"
+          
+  rates:
+    type: object
+    description: Object with currencies as property name and float rate as property value

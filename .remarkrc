@@ -1,0 +1,7 @@
+{
+    "plugins": {
+        "remark-lint": {
+            "list-item-spacing": false
+        }
+    }
+}
