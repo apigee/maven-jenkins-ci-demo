@@ -24,13 +24,13 @@ The following best practices demonstrated:
 *   Deployment suffix for team deployment - [Community
     Article](https://community.apigee.com/content/kbentry/26716/api-proxy-team-development-with-maven.html)
 
-*   Commit data in proxy description. See [pom](./pom.xml#L171).
+*   Commit data in proxy description. See [pom](./currency-v1/pom.xml#L171).
 
 *   Unit testing - [Community
     Article](https://community.apigee.com/articles/3964/unit-testing-javascript-code-with-mocha-sinon-and.html).
 
 *   Integration testing with BDD and apickli - see [feature
-    file](./test/integration/features/rates.feature).
+    file](./currency-v1/test/integration/features/rates.feature).
 
 See [maven phases](./docs/maven-phases.md) document to understand pom structure.
 
