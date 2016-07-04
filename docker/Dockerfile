@@ -17,15 +17,21 @@ COPY jenkins/hudson.tasks.Maven.xml /var/jenkins_home/
 ADD jenkins/jenkins-entrypoint.sh /usr/local/bin/jenkins-entrypoint.sh
 
 # copy git ssh files
-COPY ssh/id_rsa /usr/share/jenkins/ssh/id_rsa
 COPY ssh/config /var/jenkins_home/.ssh/config
 
 USER root
 
+# this will be directory where we keep ssh keys for git authentication
+RUN mkdir /usr/share/jenkins/ssh
+# generate public/private keys for git authentication
+RUN ssh-keygen -t rsa -b 4096 -C "jenkins@apigee.com" -f /usr/share/jenkins/ssh/id_rsa -q -P ""
 # you get "Host key verification failed" if you don't have known_hosts
 # file in place or if file is empty
 # add github to known_hosts
 RUN ssh-keyscan -t ssh-rsa github.com >> /usr/share/jenkins/ssh/known_hosts
+# copy ssh key cat utility to image
+COPY ssh/keycat.sh /usr/share/jenkins/ssh/keycat.sh
+RUN chmod +x /usr/share/jenkins/ssh/keycat.sh
 # let all files under ssh is owned by jenkins
 RUN chown -R jenkins /usr/share/jenkins/ssh
 # give permission for jenkins to update known_hosts with IP addresses of hosts
@@ -47,3 +53,6 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 USER jenkins
 
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins-entrypoint.sh"]
+
+# cat git authentication ssh public key so we can copy/paste
+RUN /usr/share/jenkins/ssh/keycat.sh

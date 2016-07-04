@@ -11,37 +11,6 @@ the commit history of this repo with test commits we will make during demos.
 So please fork this repo either to your own GitLab account or clone the repo
 locally and push it back to another remote repo.
 
-## Setup authentication
-
-[Jenkins build pipeline](jenkins-pipeline.md) that is demonstrated pushes
-code from `master` to `prod` branches when master job completes successfully.
-`git push` operation requires write access to remote repo.
-
-There are three main ways for Jenkins to get authenticated to a remote git repo:
-
-1.  username/password for HTTPS - this option is not chosen to prevent people's
-    github credentials appearing in setup scripts and configuration files.
-
-2.  OAuth - this option is not chosen to prevent access token displayed in
-    Jenkins/Maven build outputs.
-
-3.  Deploy keys - this option is chosen as it appears to be most secure option
-    for this demonstration and also the one that is well-known in community.
-
-SSH public/private key pairs can be found under [docker/ssh
-folder](docker/ssh).
-
-### Setup ssh access
-
-Follow [GitHub
-documentation](https://developer.github.com/guides/managing-deploy-keys/#deploy-keys)
-to setup a deploy key for your repo. Don't forget to enable "Allow write access"
-option.
-
-Basically all you need to do is to go to the settings page of the target repo
-and click `Deploy Keys` on the left-hand menu. Copy paste the contents of the
-[public key](docker/ssh/id_rsa.pub) as a new key.
-
 ## Docker
 
 Make sure you have [Docker](https://www.docker.com/) installed and configured
@@ -58,11 +27,23 @@ cd docker
 docker build -t apigee/ci .
 ```
 
-You should see the image `apigee/ci` created using `docker images` command:
+A new docker image called `apigee/ci` will be created.
 
-| REPOSITORY | TAG    | IMAGE ID     | CREATED       | SIZE     |
-| :-------:  | :----: | :----------: | :-----------: | :------: |
-| apigee/ci  | latest | aacf81560013 | 4 seconds ago | 902.3 MB |
+### Setup git ssh access
+
+This project uses ssh public/private key pairs in order to authenticate
+the jenkins user to git server.
+
+At the end of the image creation process, Dockerfile generates and prints out a
+new public key that you can setup as a [deploy
+key](https://developer.github.com/guides/managing-deploy-keys/#deploy-keys) in
+your git server. Please refer to documentation and setup a deploy key using this
+public key.
+
+Basically all you need to do is to go to the settings page of the target repo
+and click `Deploy Keys` on the left-hand menu. Give it a meaningful name, copy
+paste the contents of the public key as a new key and enable the "Allow write
+access" option.
 
 ## Run image
 
@@ -79,8 +60,8 @@ your setup and execute the script to run the image.
 
 Please note that `setup/run-image.sh` script is in source control. Copy this
 file to `setup/.run-image.sh` before making any changes to prevent sensitive
-data committed to this repo. Root `.gitignore` file contains a directive to ignore
-any changes to `setup/.run-image.sh`.
+data committed to this repo. Root `.gitignore` file contains a directive to
+ignore any changes to `setup/.run-image.sh`.
 
 ```bash
 # while in docker folder
