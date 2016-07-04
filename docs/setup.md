@@ -32,7 +32,7 @@ A new docker image called `apigee/ci` will be created.
 ### Setup git ssh access
 
 This project uses ssh public/private key pairs in order to authenticate
-the jenkins user to git server.
+the jenkins user to git server. [Why?](faq.md#why-ssh-for-git-authentication)
 
 At the end of the image creation process, Dockerfile generates and prints out a
 new public key that you can setup as a [deploy
