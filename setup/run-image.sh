@@ -13,17 +13,14 @@ Variable definitions:
     API_DOMAIN_TEST
         Apigee proxy domain name with port (excluding scheme) for test
         environment. Used by proxy integration testing.
-
         Example: oseymen-test.apigee.net
     API_DOMAIN_PROD
-        Apigee proxy domain name (including scheme and port) for prod
+        Apigee proxy domain name with port (excluding scheme) for prod
         environment. Used by proxy integration testing.
-
         Example: oseymen-prod.apigee.net
     SCM_URL
         Git remote URL to the repo. Used by Jenkins to clone and fetch proxy
         source code.
-
         Example: git@github.com:seymen/currency-v1.git
 '
 
