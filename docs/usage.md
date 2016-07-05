@@ -3,17 +3,6 @@
 This document assumes you have followed the [setup](setup.md) procedures and
 have a running Jenkins instance using Docker.
 
-## Setup production branch
-
-The idea is to setup a branch per environment. As we only have `prod`
-environment after `test`, prod is the only branch we can create at this point.
-
-```bash
-git checkout -b prod
-git push origin prod
-git checkout master
-```
-
 ## Feature development
 
 1.  Create a feature branch called `feature/1` from `master` branch
