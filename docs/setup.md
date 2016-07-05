@@ -14,6 +14,28 @@ the commit history of this repo with test commits we will make during demos.
 So fork this repo either to your own GitLab account or clone the repo locally
 and push it back to another git server, e.g. GitHub.
 
+### GitLab
+
+1.  Browse to `https://gitlab.apigee.com/apigee-cs/accelerator-ci-maven`
+2.  Click on the `Fork` button at the top-right of the page
+3.  Choose the target user or group to fork this repo to, e.g. click on your
+    user
+
+### GitHub
+
+1.  Create a new repository on GitHub. This repo can be public or private.
+2.  Change git server url for origin to point to the new repo in GitHub
+
+    ```bash
+    git remote set-url origin <github-repo-ssh-url>
+    ```
+
+3.  Push code to the new repo in GitHub
+
+    ```bash
+    git push
+    ```
+
 Use your local fork for below steps.
 
 ## Configure Branches

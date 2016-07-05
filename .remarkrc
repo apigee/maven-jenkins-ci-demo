@@ -1,7 +1,8 @@
 {
     "plugins": {
         "remark-lint": {
-            "list-item-spacing": false
+            "list-item-spacing": false,
+            "no-duplicate-headings": false
         }
     }
 }
