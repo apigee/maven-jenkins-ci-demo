@@ -41,12 +41,12 @@ git checkout master
     git commit -am "changed README.md"
     ```
 
-4.  Push feature branch to remote. You will see at this point that Jenkins will
+5.  Push feature branch to remote. You will see at this point that Jenkins will
     automatically start `currency-v1-features` job which will deploy the bundle
     as `currency-jenkinsv1` to `test` environment. Description of the proxy will
     be set to `commit <commit_hash> from feature/1 branch by jenkins`.
 
-5.  Create a pull request - note that even thought this is not a must-have but
+6.  Create a pull request - note that even thought this is not a must-have but
     it is good to demonstrate a best-practice team development scenario where
     merge/pull requests are used for review/discussion of features before they
     are merged to master branch.
