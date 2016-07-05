@@ -27,6 +27,7 @@ git checkout master
 3.  Deploy and test your changes
 
     ```bash
+    cd currency-v1
     mvn install -Ptest -Denv.APIGEE_ORG={ORG} -Denv.APIGEE_USERNAME={username} -Denv.APIGEE_PASSWORD={password} -Denv.API_DOMAIN_TEST={apigee_proxy_domain}
     ```
 
