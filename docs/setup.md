@@ -13,8 +13,8 @@ locally and push it back to another remote repo.
 
 ## Docker
 
-Make sure you have [Docker](https://www.docker.com/) installed and configured
-before continuing next steps.
+Make sure you have [Docker](https://www.docker.com/) installed and docker
+machine is started before continuing next steps.
 
 ## Create Jenkins image
 
