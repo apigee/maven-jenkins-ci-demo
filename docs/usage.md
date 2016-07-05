@@ -19,7 +19,7 @@ git checkout master
 1.  Create a feature branch called `feature/1` from `master` branch
 
     ```bash
-    (master): git checkout feature/1
+    (master): git checkout -b feature/1
     ```
 
 2.  Make a change anywhere in source code, e.g. README.md
