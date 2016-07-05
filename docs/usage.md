@@ -20,6 +20,29 @@ have a running Jenkins instance using Docker.
     mvn install -Ptest -Denv.APIGEE_ORG={ORG} -Denv.APIGEE_USERNAME={username} -Denv.APIGEE_PASSWORD={password} -Denv.API_DOMAIN_TEST={apigee_proxy_domain}
     ```
 
+    If you don't want to pass that many arguments to maven, you can add those
+    properties to your settings file `~/.m2/settings.xml`:
+
+    ```xml
+    <profile>
+        <id>test</id>
+        <properties>
+            <!-- these settings are for accelerator-ci-maven -->
+            <env.APIGEE_ORG>...</env.APIGEE_ORG>
+            <env.APIGEE_USERNAME>...</env.APIGEE_USERNAME>
+            <env.APIGEE_PASSWORD>...</env.APIGEE_PASSWORD>
+            <env.API_DOMAIN_TEST>...</env.API_DOMAIN_TEST>
+        </properties>
+    </profile>
+    ```
+
+    If you decide to go with the settings file approach, you can just execute
+    this command instead of the above long maven command:
+
+    ```bash
+    mvn install -Ptest
+    ```
+
     This command will deploy the bundle to `test` environment as
     `currency-<yourname>v1`. Description of the proxy will be set to `commit
     from a local branch by <your-name>`.
