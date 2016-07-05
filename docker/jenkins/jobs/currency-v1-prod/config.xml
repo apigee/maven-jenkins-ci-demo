@@ -39,6 +39,7 @@
 		<groupId>apigee</groupId>
 		<artifactId>currency-v1</artifactId>
 	</rootModule>
+    <rootPOM>currency-v1/pom.xml</rootPOM>
 	<goals>install -Pprod -Ddeployment.suffix= -Dcommit=${GIT_COMMIT} -Dbranch=${GIT_BRANCH}</goals>
 	<aggregatorStyleBuild>true</aggregatorStyleBuild>
 	<incrementalBuild>false</incrementalBuild>
