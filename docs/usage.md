@@ -22,7 +22,7 @@ git checkout master
     (master): git checkout -b feature/1
     ```
 
-2.  Make a change anywhere in source code, e.g. README.md
+2.  Open any file, e.g. README.md, and make a change
 
 3.  Deploy and test your changes
 
@@ -34,6 +34,12 @@ git checkout master
     This command will deploy the bundle to `test` environment as
     `currency-<yourname>v1`. Description of the proxy will be set to `commit
     from a local branch by <your-name>`.
+
+4.  Commit your changes to feature branch
+
+    ```bash
+    git commit -am "changed README.md"
+    ```
 
 4.  Push feature branch to remote. You will see at this point that Jenkins will
     automatically start `currency-v1-features` job which will deploy the bundle
