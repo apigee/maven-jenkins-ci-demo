@@ -1,5 +1,8 @@
 # Setup
 
+Make sure you have [Docker](https://www.docker.com/) installed and docker
+machine is started before continuing next steps.
+
 ## Fork this repo
 
 In order to demonstrate CI, we will need to do commits/PRs to a repo and
@@ -8,13 +11,24 @@ cannot use a shared repo during demos as we need to prevent jobs triggering on
 another jenkins instance pointing to the same repo. We also shouldn't clutter
 the commit history of this repo with test commits we will make during demos.
 
-So please fork this repo either to your own GitLab account or clone the repo
-locally and push it back to another remote repo.
+So fork this repo either to your own GitLab account or clone the repo locally
+and push it back to another git server, e.g. GitHub.
 
-## Docker
+Use your local fork for below steps.
 
-Make sure you have [Docker](https://www.docker.com/) installed and docker
-machine is started before continuing next steps.
+## Configure Branches
+
+We only need the `master` and a `prod` branch for this demonstration - the idea
+is to have a branch per environment.
+
+1.  Delete all other branches apart from `master` branch in your forked repo
+2.  Setup a `prod` branch
+
+    ```bash
+    git checkout -b prod
+    git push origin prod
+    git checkout master
+    ```
 
 ## Create Jenkins image
 
@@ -29,21 +43,35 @@ docker build -t apigee/ci .
 
 A new docker image called `apigee/ci` will be created.
 
-### Setup git ssh access
+## Setup git ssh access
 
 This project uses ssh public/private key pairs in order to authenticate
 the jenkins user to git server. [Why?](faq.md#why-ssh-for-git-authentication)
 
 At the end of the image creation process, Dockerfile generates and prints out a
-new public key that you can setup as a [deploy
-key](https://developer.github.com/guides/managing-deploy-keys/#deploy-keys) in
-your git server. Please refer to documentation and setup a deploy key using this
-public key.
+new public key that you can setup to give jenkins push/pull access to your repo.
 
-Basically all you need to do is to go to the settings page of the target repo
-and click `Deploy Keys` on the left-hand menu. Give it a meaningful name, copy
-paste the contents of the public key as a new key and enable the "Allow write
-access" option.
+### GitLab
+
+If you forked the project to your GitLab account, then go to your profile
+settings and click `SSH Keys` on the left-hand menu. Give it a meaningful name
+and copy/paste the contents of the public key as a new key.
+
+See [GitLab SSH Keys
+Documentation](http://docs.gitlab.com/ce/gitlab-basics/create-your-ssh-keys.html)
+
+GitLab doesn't allow repository deploy keys to have write access, therefore we
+can't use that functionality for this demo.
+
+### GitHub
+
+If you pushed the project files to your GitHub account, then go to your repo and
+click `Deploy Keys` on the left-hand menu. Give it a meaningful name, copy/paste
+the contents of the public key as a new key and enable "Allow write access"
+option.
+
+See [GitHub Deploy Keys
+Documentation](https://developer.github.com/guides/managing-deploy-keys/#deploy-keys)
 
 ## Run image
 
@@ -70,20 +98,20 @@ ignore any changes to `setup/.run-image.sh`.
 
 Script will output the docker container hash.
 
-## Jenkins
+## Access Jenkins
 
-### Find docker ip address
+As Jenkins is running inside the container you just started, you need the IP
+address of the docker machine in order to access it from your browser. Execute
+the following command to find out the IP address:
 
 ```bash
 docker-machine ip default
 ```
 
-### Start Jenkins
+Fire up a browser and hit `http://<your-docker-ip>:9001` to access Jenkins UI.
 
-Fire up a browser and hit `http://<your-docker-ip>:9001` to access Jenkins.
-
-Please note that as Jenkins jobs are setup to trigger every minute, Jenkins will
-run all jobs configured upon start. However all jobs will fail as we don't yet
-have feature and production branches configured.
+Please note that Jenkins will start all jobs upon start as it is configured to
+trigger each job every minute. Master and prod jobs should succeed but feature
+job will fail as we don't have a feature branch yet.
 
 Please follow [usage](usage.md) to see Jenkins in action.

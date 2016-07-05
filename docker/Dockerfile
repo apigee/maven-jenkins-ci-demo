@@ -29,6 +29,7 @@ RUN ssh-keygen -t rsa -b 4096 -C "jenkins@apigee.com" -f /usr/share/jenkins/ssh/
 # file in place or if file is empty
 # add github to known_hosts
 RUN ssh-keyscan -t ssh-rsa github.com >> /usr/share/jenkins/ssh/known_hosts
+RUN ssh-keyscan -t ssh-rsa gitlab.apigee.com >> /usr/share/jenkins/ssh/known_hosts
 # copy ssh key cat utility to image
 COPY ssh/keycat.sh /usr/share/jenkins/ssh/keycat.sh
 RUN chmod +x /usr/share/jenkins/ssh/keycat.sh

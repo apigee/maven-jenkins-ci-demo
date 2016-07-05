@@ -4,3 +4,9 @@ Host github.com
 	User git
 	IdentityFile /usr/share/jenkins/ssh/id_rsa
 	UserKnownHostsFile /usr/share/jenkins/ssh/known_hosts
+Host gitlab.apigee.com
+	IdentitiesOnly yes
+	Hostname gitlab.apigee.com
+	User git
+	IdentityFile /usr/share/jenkins/ssh/id_rsa
+	UserKnownHostsFile /usr/share/jenkins/ssh/known_hosts
