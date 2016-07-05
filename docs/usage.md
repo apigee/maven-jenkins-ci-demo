@@ -30,7 +30,13 @@ have a running Jenkins instance using Docker.
     git commit -am "changed README.md"
     ```
 
-5.  Push feature branch to remote. You will see at this point that Jenkins will
+5.  Push feature branch to remote.
+
+    ```bash
+    git push origin feature/1
+    ```
+
+    You will see at this point that Jenkins will
     automatically start `currency-v1-features` job which will deploy the bundle
     as `currency-jenkinsv1` to `test` environment. Description of the proxy will
     be set to `commit <commit_hash> from feature/1 branch by jenkins`.
@@ -50,6 +56,7 @@ git checkout master
 git merge --no-ff feature/1
 git push
 git branch -d feature/1
+git push origin :feature/1
 ```
 
 You will see at this point that Jenkins will automatically start
