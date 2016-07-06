@@ -133,7 +133,8 @@ docker-machine ip default
 Fire up a browser and hit `http://<your-docker-ip>:9001` to access Jenkins UI.
 
 Please note that Jenkins will start all jobs upon start as it is configured to
-trigger each job every minute. Master and prod jobs should succeed but feature
-job will fail as we don't have a feature branch yet.
+trigger each job every minute [why not git web
+hooks?](faq.md#why-not-git-web-hooks). Master and prod jobs should succeed but
+feature job will fail as we don't have a feature branch yet.
 
 Please follow [usage](usage.md) to see Jenkins in action.
