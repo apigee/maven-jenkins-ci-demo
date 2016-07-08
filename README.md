@@ -1,7 +1,5 @@
 # Continuous Integration for Apigee Proxies using Maven
 
-DEMO
-
 ![CI for Apigee Proxies](docs/images/apigee-ci.png)
 
 The objective of this project is to implement a containarised framework that can
