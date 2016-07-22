@@ -1,82 +1,79 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<maven2-moduleset plugin="maven-plugin@2.7.1">
-	<actions/>
-	<description></description>
-	<keepDependencies>false</keepDependencies>
-	<properties>
-		<com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.2.3">
-			<gitLabConnection></gitLabConnection>
-		</com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
-	</properties>
-	<scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.4">
-		<configVersion>2</configVersion>
-		<userRemoteConfigs>
-			<hudson.plugins.git.UserRemoteConfig>
-				<url>${SCM_URL}</url>
-			</hudson.plugins.git.UserRemoteConfig>
-		</userRemoteConfigs>
-		<branches>
-			<hudson.plugins.git.BranchSpec>
-				<name>*/master</name>
-			</hudson.plugins.git.BranchSpec>
-		</branches>
-		<doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-		<submoduleCfg class="list"/>
-		<extensions/>
-	</scm>
-	<canRoam>true</canRoam>
-	<disabled>false</disabled>
-	<blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-	<blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-	<triggers>
-		<hudson.triggers.SCMTrigger>
-			<spec>* * * * *</spec>
-			<ignorePostCommitHooks>false</ignorePostCommitHooks>
-		</hudson.triggers.SCMTrigger>
-	</triggers>
-	<concurrentBuild>false</concurrentBuild>
-	<rootModule>
-		<groupId>apigee</groupId>
-		<artifactId>currency-v1</artifactId>
-	</rootModule>
+<maven2-moduleset plugin="maven-plugin@2.13">
+    <actions/>
+    <description></description>
+    <keepDependencies>false</keepDependencies>
+    <properties/>
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@2.5.2">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+            <hudson.plugins.git.UserRemoteConfig>
+                <url>${SCM_URL}</url>
+            </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+            <hudson.plugins.git.BranchSpec>
+                <name>*/master</name>
+            </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions/>
+    </scm>
+    <canRoam>true</canRoam>
+    <disabled>false</disabled>
+    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <triggers>
+        <hudson.triggers.SCMTrigger>
+            <spec>* * * * *</spec>
+            <ignorePostCommitHooks>false</ignorePostCommitHooks>
+        </hudson.triggers.SCMTrigger>
+    </triggers>
+    <concurrentBuild>false</concurrentBuild>
+    <rootModule>
+        <groupId>apigee</groupId>
+        <artifactId>currency-v1</artifactId>
+    </rootModule>
     <rootPOM>currency-v1/pom.xml</rootPOM>
-	<goals>install -Ptest -Ddeployment.suffix= -Dcommit=${GIT_COMMIT} -Dbranch=${GIT_BRANCH}</goals>
-	<aggregatorStyleBuild>true</aggregatorStyleBuild>
-	<incrementalBuild>false</incrementalBuild>
-	<ignoreUpstremChanges>true</ignoreUpstremChanges>
-	<archivingDisabled>false</archivingDisabled>
-	<siteArchivingDisabled>false</siteArchivingDisabled>
-	<fingerprintingDisabled>false</fingerprintingDisabled>
-	<resolveDependencies>false</resolveDependencies>
-	<processPlugins>false</processPlugins>
-	<mavenValidationLevel>-1</mavenValidationLevel>
-	<runHeadless>false</runHeadless>
-	<disableTriggerDownstreamProjects>false</disableTriggerDownstreamProjects>
-	<blockTriggerWhenBuilding>true</blockTriggerWhenBuilding>
-	<settings class="jenkins.mvn.DefaultSettingsProvider"/>
-	<globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
-	<reporters/>
-	<publishers>
-		<hudson.plugins.git.GitPublisher plugin="git@2.4.4">
-			<configVersion>2</configVersion>
-			<pushMerge>false</pushMerge>
-			<pushOnlyIfSuccess>true</pushOnlyIfSuccess>
-			<forcePush>false</forcePush>
-			<branchesToPush>
-				<hudson.plugins.git.GitPublisher_-BranchToPush>
-					<targetRepoName>origin</targetRepoName>
-					<branchName>prod</branchName>
-				</hudson.plugins.git.GitPublisher_-BranchToPush>
-			</branchesToPush>
-		</hudson.plugins.git.GitPublisher>
-	</publishers>
-	<buildWrappers/>
-	<prebuilders/>
-	<postbuilders/>
-	<runPostStepsIfResult>
-		<name>FAILURE</name>
-		<ordinal>2</ordinal>
-		<color>RED</color>
-		<completeBuild>true</completeBuild>
-	</runPostStepsIfResult>
+    <goals>install -Ptest -Ddeployment.suffix= -Dcommit=${GIT_COMMIT} -Dbranch=${GIT_BRANCH}</goals>
+    <aggregatorStyleBuild>true</aggregatorStyleBuild>
+    <incrementalBuild>false</incrementalBuild>
+    <ignoreUpstremChanges>true</ignoreUpstremChanges>
+    <ignoreUnsuccessfulUpstreams>false</ignoreUnsuccessfulUpstreams>
+    <archivingDisabled>false</archivingDisabled>
+    <siteArchivingDisabled>false</siteArchivingDisabled>
+    <fingerprintingDisabled>false</fingerprintingDisabled>
+    <resolveDependencies>false</resolveDependencies>
+    <processPlugins>false</processPlugins>
+    <mavenValidationLevel>-1</mavenValidationLevel>
+    <runHeadless>false</runHeadless>
+    <disableTriggerDownstreamProjects>false</disableTriggerDownstreamProjects>
+    <blockTriggerWhenBuilding>true</blockTriggerWhenBuilding>
+    <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+    <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+    <reporters/>
+    <publishers>
+        <hudson.plugins.git.GitPublisher plugin="git@2.5.2">
+            <configVersion>2</configVersion>
+            <pushMerge>false</pushMerge>
+            <pushOnlyIfSuccess>true</pushOnlyIfSuccess>
+            <forcePush>false</forcePush>
+            <branchesToPush>
+                <hudson.plugins.git.GitPublisher_-BranchToPush>
+                    <targetRepoName>origin</targetRepoName>
+                    <branchName>prod</branchName>
+                </hudson.plugins.git.GitPublisher_-BranchToPush>
+            </branchesToPush>
+        </hudson.plugins.git.GitPublisher>
+    </publishers>
+    <buildWrappers/>
+    <prebuilders/>
+    <postbuilders/>
+    <runPostStepsIfResult>
+        <name>FAILURE</name>
+        <ordinal>2</ordinal>
+        <color>RED</color>
+        <completeBuild>true</completeBuild>
+    </runPostStepsIfResult>
 </maven2-moduleset>
