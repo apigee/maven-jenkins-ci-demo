@@ -1,6 +1,6 @@
 {
 	"name": "currency-v1",
-	"version": "1.0.0", 
+	"version": "1.0.0",
 	"devDependencies": {
 		"apickli": "^1.7.0",
 		"cucumber": "^1.0.0",
