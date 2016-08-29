@@ -72,7 +72,7 @@ module.exports = function() {
 
 			var today = new Date();
 			var toDate = new Date();
-			var fromDate = new Date(today.setTime( today.getTime() - 3 * 86400000 ));
+			var fromDate = new Date(today.setTime( today.getTime() - 4 * 86400000 ));
 
 			if ((dateInResponse >= fromDate) && (dateInResponse <= toDate)) {
 				callback();
