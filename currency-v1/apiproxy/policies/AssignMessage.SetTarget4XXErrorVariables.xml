@@ -1,4 +1,4 @@
-<AssignMessage name="AssignMessage.SetTarget422ErrorVariables">
+<AssignMessage name="AssignMessage.SetTarget4XXErrorVariables">
 
 	<AssignVariable>
 		<Name>flow.apigee.error.code</Name>

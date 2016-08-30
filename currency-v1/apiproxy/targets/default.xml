@@ -2,9 +2,9 @@
 <TargetEndpoint name="default">
 
 	<FaultRules>
-		<FaultRule name="Target 422">
+		<FaultRule name="Target 4XX">
 			<Condition>
-				(response.status.code = 422)
+				(response.status.code = 422) or (response.status.code = 424)
 			</Condition>
 			<Step>
 				<Name>AssignMessage.SetResponseContentTypeToJson</Name>
@@ -13,7 +13,7 @@
 				<Name>ExtractVariables.GetTargetErrorMessage</Name>
 			</Step>
 			<Step>
-				<Name>AssignMessage.SetTarget422ErrorVariables</Name>
+				<Name>AssignMessage.SetTarget4XXErrorVariables</Name>
 			</Step>
 		</FaultRule>
 		<FaultRule name="Target 404">
