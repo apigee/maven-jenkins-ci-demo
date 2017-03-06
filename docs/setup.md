@@ -1,7 +1,7 @@
 # Setup
 
-Make sure you have [Docker](https://www.docker.com/) installed and docker
-machine is started before continuing next steps.
+Make sure you have [Docker](https://www.docker.com/) installed before continuing to the next steps.  You may also need [Docker
+Machine](https://docs.docker.com/machine/) if you're running an older version of Docker.
 
 ## Fork this repo
 
