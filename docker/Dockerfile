@@ -1,4 +1,4 @@
-FROM jenkins:2.7.1
+FROM jenkins/jenkins:2.62
 
 # install jenkins plugins
 COPY jenkins/plugins /usr/share/jenkins/plugins
@@ -48,8 +48,8 @@ RUN chmod +x /usr/local/bin/jenkins-entrypoint.sh
 RUN apt-get update
 
 # install node.js
-RUN apt-get install -y nodejs npm
-RUN ln -s /usr/bin/nodejs /usr/bin/node
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN apt-get install -y nodejs
 
 USER jenkins
 
