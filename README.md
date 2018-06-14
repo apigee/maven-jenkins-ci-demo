@@ -6,6 +6,8 @@ The objective of this project is to implement a containarised framework that can
 be used to demonstrate best practices around continuous integration for Apigee
 projects.
 
+This is not an officially supported Google product.
+
 ## Components
 
 ### Sample Apigee Proxy - Currency API
