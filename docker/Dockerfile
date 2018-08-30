@@ -2,7 +2,7 @@ FROM jenkins/jenkins:2.62
 
 # install jenkins plugins
 COPY jenkins/plugins /usr/share/jenkins/plugins
-COPY jenkins/install-plugins.sh /usr/share/jenkins/install-plugins.sh
+COPY ../third_party/jenkinsci/docker/install-plugins.sh /usr/share/jenkins/install-plugins.sh
 RUN while read i ; \ 
 		do /usr/share/jenkins/install-plugins.sh $i ; \
 	done < /usr/share/jenkins/plugins
