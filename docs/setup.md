@@ -16,7 +16,7 @@ and push it back to another git server, e.g. GitHub.
 
 ### GitLab
 
-1.  Browse to `https://gitlab.apigee.com/apigee-cs/accelerator-ci-maven`
+1.  Browse to `https://gitlab.apigee.com/apigee/maven-jenkins-ci-demo`
 2.  Click on the `Fork` button at the top-right of the page
 3.  Choose the target user or group to fork this repo to, e.g. click on your
     user

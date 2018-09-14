@@ -26,7 +26,7 @@ have a running Jenkins instance using Docker.
     <profile>
         <id>test</id>
         <properties>
-            <!-- these settings are for accelerator-ci-maven -->
+            <!-- these settings are for maven-jenkins-ci-demo -->
             <env.APIGEE_ORG>...</env.APIGEE_ORG>
             <env.APIGEE_USERNAME>...</env.APIGEE_USERNAME>
             <env.APIGEE_PASSWORD>...</env.APIGEE_PASSWORD>
