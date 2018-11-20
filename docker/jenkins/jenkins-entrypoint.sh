@@ -19,4 +19,4 @@
 cp -R /usr/share/jenkins/jobs /var/jenkins_home/jobs
 
 # call the original entry point
-/bin/tini -- /usr/local/bin/jenkins.sh
+/sbin/tini -- /usr/local/bin/jenkins.sh

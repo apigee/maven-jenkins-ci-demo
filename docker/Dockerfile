@@ -1,23 +1,23 @@
-FROM jenkins/jenkins:2.62
+FROM jenkins/jenkins:2.138.1
 
 # install jenkins plugins
-COPY jenkins/plugins /usr/share/jenkins/plugins
-COPY ../third_party/jenkinsci/docker/install-plugins.sh /usr/share/jenkins/install-plugins.sh
+COPY ./docker/jenkins/plugins /usr/share/jenkins/plugins
+COPY ./third_party/jenkinsci/docker/install-plugins.sh /usr/share/jenkins/install-plugins.sh
 RUN while read i ; \ 
 		do /usr/share/jenkins/install-plugins.sh $i ; \
 	done < /usr/share/jenkins/plugins
 
 # copy jenkins jobs
-ADD jenkins/jobs /usr/share/jenkins/jobs
+ADD docker/jenkins/jobs /usr/share/jenkins/jobs
 
 # copy maven settings
-COPY jenkins/hudson.tasks.Maven.xml /var/jenkins_home/
+COPY docker/jenkins/hudson.tasks.Maven.xml /var/jenkins_home/
 
 # copy a new entry point script to start jenkins
-ADD jenkins/jenkins-entrypoint.sh /usr/local/bin/jenkins-entrypoint.sh
+ADD docker/jenkins/jenkins-entrypoint.sh /usr/local/bin/jenkins-entrypoint.sh
 
 # copy git ssh files
-COPY ssh/config /var/jenkins_home/.ssh/config
+COPY docker/ssh/config /var/jenkins_home/.ssh/config
 
 USER root
 
@@ -31,7 +31,7 @@ RUN ssh-keygen -t rsa -b 4096 -C "jenkins@apigee.com" -f /usr/share/jenkins/ssh/
 RUN ssh-keyscan -t ssh-rsa github.com >> /usr/share/jenkins/ssh/known_hosts
 RUN ssh-keyscan -t ssh-rsa gitlab.apigee.com >> /usr/share/jenkins/ssh/known_hosts
 # copy ssh key cat utility to image
-COPY ssh/keycat.sh /usr/share/jenkins/ssh/keycat.sh
+COPY docker/ssh/keycat.sh /usr/share/jenkins/ssh/keycat.sh
 RUN chmod +x /usr/share/jenkins/ssh/keycat.sh
 # let all files under ssh is owned by jenkins
 RUN chown -R jenkins /usr/share/jenkins/ssh
@@ -53,7 +53,7 @@ RUN apt-get install -y nodejs
 
 USER jenkins
 
-ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins-entrypoint.sh"]
+ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins-entrypoint.sh"]
 
 # cat git authentication ssh public key so we can copy/paste
 RUN /usr/share/jenkins/ssh/keycat.sh
