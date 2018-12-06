@@ -54,12 +54,11 @@ is to have a branch per environment.
 
 ## Create Jenkins image
 
-Project includes a [Dockerfile](docker/Dockerfile) that creates a Docker
+Project includes a [Dockerfile](./Dockerfile) that creates a Docker
 image using Jenkins official Docker image as base. It also sets up required
 Jenkins plugins and copies job configurations to the image.
 
 ```bash
-cd docker
 docker build -t apigee/ci .
 ```
 
