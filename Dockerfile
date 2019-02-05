@@ -1,8 +1,8 @@
 FROM jenkins/jenkins:2.138.1
 
 # install jenkins plugins
-COPY ./docker/jenkins/plugins /usr/share/jenkins/plugins
-COPY ./third_party/jenkinsci/docker/install-plugins.sh /usr/share/jenkins/install-plugins.sh
+COPY --chown jenkins:jenkins ./docker/jenkins/plugins /usr/share/jenkins/plugins
+COPY --chown jenkins:jenkins ./third_party/jenkinsci/docker/install-plugins.sh /usr/share/jenkins/install-plugins.sh
 RUN while read i ; \ 
 		do /usr/share/jenkins/install-plugins.sh $i ; \
 	done < /usr/share/jenkins/plugins
