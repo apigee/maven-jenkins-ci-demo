@@ -25,12 +25,18 @@
 	</PreFlow>
 
 	<Flows>
-		<Flow name="Get Exchange Rates">
-			<Condition>
+		<Flow name="Get Latest Exchange Rates">
+            		<Condition>
 				(request.verb = "GET") and 
-				(proxy.pathsuffix MatchesPath "/rates")
+				(proxy.pathsuffix MatchesPath "/latest")
 			</Condition>
-		</Flow>
+        	</Flow>
+        	<Flow name="Get Exchange Rates by Date">
+            		<Condition>
+				(request.verb = "GET") and 
+				(proxy.pathsuffix ~~  "/\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])")
+			</Condition>
+        	</Flow>
 
 		<Flow name="404">
 			<Request>
