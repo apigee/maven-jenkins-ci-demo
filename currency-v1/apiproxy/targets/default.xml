@@ -54,7 +54,6 @@
 	<PostFlow>
 		<Request>
 			<Step>
-				<Name>JavaScript.ConfigureTargetRequest</Name>
 			</Step>
 		</Request>
 	</PostFlow>
