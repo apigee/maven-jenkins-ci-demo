@@ -52,10 +52,7 @@
 	</Flows>
 
 	<PostFlow>
-		<Request>
-			<Step>
-			</Step>
-		</Request>
+		 <Request/>
 	</PostFlow>
 
 	<HTTPTargetConnection>
