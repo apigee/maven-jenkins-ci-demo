@@ -2,27 +2,27 @@
 
 	<AssignVariable>
 		<Name>flow.apigee.error.code</Name>
-		<Value>404.01.001</Value>
+		<Value>400.01.001</Value>
 	</AssignVariable>
 
 	<AssignVariable>
 		<Name>flow.apigee.error.message</Name>
-		<Value>Resource not found</Value>
+		<Value>Invalid date</Value>
 	</AssignVariable>
 
 	<AssignVariable>
 		<Name>flow.apigee.error.info</Name>
-		<Value>https://developers.apigee.com/errors/404.01.001</Value>
+		<Value>https://developers.apigee.com/errors/400.02.001</Value>
 	</AssignVariable>
 
 	<AssignVariable>
 		<Name>flow.apigee.error.status</Name>
-		<Value>404</Value>
+		<Value>400</Value>
 	</AssignVariable>
 
 	<AssignVariable>
 		<Name>flow.apigee.error.reason</Name>
-		<Value>Not Found</Value>
+		<Value>Bad Request</Value>
 	</AssignVariable>
 
 </AssignMessage>

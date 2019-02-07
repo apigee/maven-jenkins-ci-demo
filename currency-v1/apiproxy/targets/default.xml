@@ -27,29 +27,36 @@
 	</FaultRules>
 
 	<Flows>
-		<Flow name="Get Exchange Rates">
-			<Condition>
+		<Flow name="Get Latest Exchange Rates">
+            		<Condition>
 				(request.verb = "GET") and 
-				(proxy.pathsuffix MatchesPath "/rates")
+				(proxy.pathsuffix MatchesPath "/latest")
 			</Condition>
-			<Request>
-				<Step>
-					<Name>AssignMessage.SetTargetResource</Name>
-				</Step>
-			</Request>
-		</Flow>
+            		<Request>
+                	<Step>
+                    		<Name>AssignMessage.SetTargetResource</Name>
+                	</Step>
+            		</Request>
+        	</Flow>
+        	<Flow name="Get Exchange Rates by Date">
+            		<Condition>
+				(request.verb = "GET") and 
+				(proxy.pathsuffix ~~  "/\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])")
+			</Condition>
+            		<Request>
+                	<Step>
+                   		<Name>AssignMessage.SetTargetResource</Name>
+                	</Step>
+            	</Request>
+        	</Flow>
 	</Flows>
 
 	<PostFlow>
-		<Request>
-			<Step>
-				<Name>JavaScript.ConfigureTargetRequest</Name>
-			</Step>
-		</Request>
+		 <Request/>
 	</PostFlow>
 
 	<HTTPTargetConnection>
-		<URL>http://api.fixer.io/{flow.target.resource}</URL>
+		<URL>https://frankfurter.app</URL>
 	</HTTPTargetConnection>
 
 </TargetEndpoint>

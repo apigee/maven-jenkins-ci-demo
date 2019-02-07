@@ -31,14 +31,6 @@ Feature: Get Currency Rates Feature
 		Then I should see GBP as the base currency
 		And I should see the rates for 2016-05-10
 
-	Scenario: I should get an error for invalid currency
-		When I request all exchange rates with bla as the base currency
-		Then I should get a 400 error with "Invalid base" message and code "400.01.001"
-
-	Scenario: I should get an error for very old date
-		When I request all exchange rates for 1940-01-01
-		Then I should get a 400 error with "Date too old" message and code "400.01.001"
-
 	Scenario Outline: I should get an error for invalid date format
 		When I request all exchange rates for <invalid_date>
 		Then I should get a 400 error with "Invalid date" message and code "400.01.001"
@@ -52,4 +44,5 @@ Feature: Get Currency Rates Feature
 			| 2016-01      |
 			| 2016-01-     |
 			| 2016-01-1    |
+			| 1940-01-1    |
 			| abcd         |
