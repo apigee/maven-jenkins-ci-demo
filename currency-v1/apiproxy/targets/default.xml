@@ -49,7 +49,7 @@
 	</PostFlow>
 
 	<HTTPTargetConnection>
-		<URL>http://frankfurter.app/{flow.target.resource}</URL>
+		<URL>http://frankfurter.app</URL>
 	</HTTPTargetConnection>
 
 </TargetEndpoint>
