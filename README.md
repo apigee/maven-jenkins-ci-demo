@@ -1,4 +1,4 @@
-# Continuous Integration for Apigee Proxies using Maven:
+# Continuous Integration for Apigee Proxies using Maven
 
 ![CI for Apigee Proxies](docs/images/apigee-ci.png)
 
