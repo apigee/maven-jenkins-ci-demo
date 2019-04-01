@@ -17,7 +17,7 @@ COPY --chown=jenkins:jenkins docker/jenkins/hudson.tasks.Maven.xml /var/jenkins_
 ADD --chown=jenkins:jenkins docker/jenkins/jenkins-entrypoint.sh /usr/local/bin/jenkins-entrypoint.sh
 
 # copy git ssh files
-COPY docker/ssh/config /var/jenkins_home/.ssh/config
+COPY --chown=jenkins:jenkins docker/ssh/config /var/jenkins_home/.ssh/config
 
 USER root
 
@@ -52,7 +52,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 
 USER jenkins
-
+	
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins-entrypoint.sh"]
 
 # cat git authentication ssh public key so we can copy/paste
