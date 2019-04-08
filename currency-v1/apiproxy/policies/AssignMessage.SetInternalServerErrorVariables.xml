@@ -2,7 +2,7 @@
 
 	<AssignVariable>
 		<Name>flow.apigee.error.code</Name>
-		<Value>500.01.001</Value>
+		<Value>500.01.002</Value>
 	</AssignVariable>
 
 	<AssignVariable>
