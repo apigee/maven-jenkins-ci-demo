@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.138.1
+FROM jenkins/jenkins:2.138.4
 
 # install jenkins plugins
 COPY --chown=jenkins:jenkins ./docker/jenkins/plugins /usr/share/jenkins/plugins
@@ -52,7 +52,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 
 USER jenkins
-
+ENV JAVA_OPTS "-Djenkins.install.runSetupWizard=false"
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins-entrypoint.sh"]
 
 # cat git authentication ssh public key so we can copy/paste
