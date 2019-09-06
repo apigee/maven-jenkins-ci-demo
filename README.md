@@ -1,6 +1,6 @@
 
 # Continuous Integration for Apigee Proxies using Maven
-The objective of this project is to implement a containarised framework that can
+The objective of this project is to implement a containerised framework that can
 be used to demonstrate best practices around continuous integration for Apigee
 projects.
 
