@@ -15,7 +15,7 @@ All documentation should be managed in the `docs` folder. Codelabs is used to ge
 go get github.com/googlecodelabs/tools/claat
 ```
 
-You can then use the following commands to generate and serve the docs locally.
+You can then use the following commands to generate and serve the docs locally. This creates an index.html file based on the markdown specified.
 
 ```
 claat export -o docs/codelabs docs/docs.md
