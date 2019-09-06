@@ -1,6 +1,6 @@
 # Continuous Integration for Apigee Proxies using Maven
 
-** Read the full Docs [here](https://apigee.github.io/maven-jenkins-ci-demo) **
+**Read the full Docs [here](https://apigee.github.io/maven-jenkins-ci-demo)**
 
 [![CI for Apigee Proxies](docs-src/images/apigee-ci.png)](https://apigee.github.io/maven-jenkins-ci-demo)
 
