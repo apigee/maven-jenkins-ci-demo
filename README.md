@@ -1,10 +1,8 @@
 # Continuous Integration for Apigee Proxies using Maven
 
-![CI for Apigee Proxies](docs/images/apigee-ci.png)
+![CI for Apigee Proxies](docs-src/images/apigee-ci.png)
 
-The objective of this project is to implement a containarised framework that can
-be used to demonstrate best practices around continuous integration for Apigee
-projects.
+The Objective of this project is to provide a containerised Jenkins image, prepackaged with required plugins and Apigee Jobs. This should not be used for a production setup, instead please refer to the Jenkins [Documentation](https://jenkins.io/doc/book/installing/).
 
 This is not an officially supported Google product.
 
@@ -15,18 +13,20 @@ This is not an officially supported Google product.
 Project contains a sample proxy for a currency API that retrieves exchange rates
 for a base currency using [fixer.io](http://fixer.io) API as the target.
 
-See [Currency API OpenAPI Specification](./docs/currency-v1.yaml) for more
+See [Currency API OpenAPI Specification](./docs-src/currency-v1.yaml) for more
 information on northbound api design.
 
-The following best practices demonstrated:
+The following best practices are demonstrated:
 
 *   Error handling - [Community
     Article](https://community.apigee.com/content/kbentry/23724/an-error-handling-pattern-for-apigee-proxies.html)
 
-*   Deployment suffix for team deployment - [Community
+*   Supporting Parallel Development on an API Proxy - [Community
     Article](https://community.apigee.com/content/kbentry/26716/api-proxy-team-development-with-maven.html)
 
 *   Commit data in proxy description. See [pom](./currency-v1/pom.xml#L171).
+
+[pomxmlsnippet](docs-src/images/pomxml sample snippet.png)
 
 *   Unit testing - [Community
     Article](https://community.apigee.com/articles/3964/unit-testing-javascript-code-with-mocha-sinon-and.html).
@@ -34,7 +34,7 @@ The following best practices demonstrated:
 *   Integration testing with BDD and apickli - see [feature
     file](./currency-v1/test/integration/features/rates.feature).
 
-See [maven phases](./docs/maven-phases.md) document to understand pom structure.
+See [maven phases](./docs-src/maven-phases.md) document to understand pom structure.
 
 ### Dockerfile
 
@@ -54,8 +54,8 @@ Docker implementation performs the following operations:
 
 *   Install node.js and npm
 
-Read the [Jenkins build pipeline](./docs/jenkins-pipeline.md) to understand how
+Read the [Jenkins build pipeline](./docs-src/jenkins-pipeline.md) to understand how
 pipeline is configured for this demonstration.
 
-Read the [setup instructions](./docs/setup.md) for step-by-step instructions on
+Read the [setup instructions](./docs-src/setup.md) for step-by-step instructions on
 how to setup the whole CI process using the sample proxy and Dockerfile.
