@@ -1,0 +1,309 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Continuous Integration for Apigee Proxies using Maven</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="maven-jenkins-ci-demo"
+                  title="Continuous Integration for Apigee Proxies using Maven"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introduction" duration="0">
+        <h2 is-upgraded>Demo Walkthrough of Continuous Integration for Apigee Proxies using Maven</h2>
+<p><strong>Last Updated:</strong> 2019-09-04</p>
+<p>Persona: API Developer</p>
+<p class="image-container"><img alt="image alt text" src="img/72aea87aa86d7b85.png"></p>
+<p>The objective of this project is to implement a containarised framework that can be used to demonstrate best practices around continuous integration for Apigee projects.</p>
+<p>This is not an officially supported Google product.</p>
+<h2 is-upgraded>Components</h2>
+<h3 is-upgraded>Sample Apigee Proxy - Currency API</h3>
+<p>Project contains a sample proxy for a currency API that retrieves exchange rates for a base currency using <a href="http://fixer.io/" target="_blank">fixer.io</a> API as the target.</p>
+<p>See <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/docs/currency-v1.yaml" target="_blank">Currency API OpenAPI Specification</a> for more information on northbound api design.</p>
+<p>The following best practices demonstrated:</p>
+<ul>
+<li>Error handling - <a href="https://community.apigee.com/content/kbentry/23724/an-error-handling-pattern-for-apigee-proxies.html" target="_blank">Community Article</a></li>
+<li>Deployment suffix for team deployment - <a href="https://community.apigee.com/content/kbentry/26716/api-proxy-team-development-with-maven.html" target="_blank">Community Article</a></li>
+<li>Commit data in proxy description. See <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/currency-v1/pom.xml#L171" target="_blank">pom</a>.</li>
+<li>Unit testing - <a href="https://community.apigee.com/articles/3964/unit-testing-javascript-code-with-mocha-sinon-and.html" target="_blank">Community Article</a>.</li>
+<li>Integration testing with BDD and apickli - see <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/currency-v1/test/integration/features/rates.feature" target="_blank">feature file</a>.</li>
+</ul>
+<p>See <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/docs/maven-phases.md" target="_blank">maven phases</a> document to understand pom structure.</p>
+<h3 is-upgraded>Dockerfile</h3>
+<p>Project contains a <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/docker/Dockerfile" target="_blank">Dockerfile</a> that can be used to create a Jenkins image ready to start deploying currency api.</p>
+<p>Docker implementation performs the following operations:</p>
+<ul>
+<li>Jenkins plugin installation - check out the <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/docker/jenkins/plugins" target="_blank">list of plugins installed</a></li>
+<li>Setup build jobs - see <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/docker/jenkins/jobs" target="_blank">jobs folder</a></li>
+<li>Configure maven settings</li>
+<li>Configure ssh for github authentication</li>
+<li>Install node.js and npm</li>
+</ul>
+<p>Read the <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/docs/jenkins-pipeline.md" target="_blank">Jenkins build pipeline</a> to understand how pipeline is configured for this demonstration.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setup the Environment" duration="0">
+        <h2 is-upgraded>Prerequisites</h2>
+<ul>
+<li>Local machine with the following tools installed:<br><br><ul>
+<li>Docker</li>
+<li>Maven</li>
+<li>NodeJS</li>
+</ul>
+</li>
+<li>Apigee Demo Organization</li>
+<li>Github Account</li>
+<li>Optional: VSCode with Github Extension</li>
+</ul>
+<h2 is-upgraded>Fork the Github Repository</h2>
+<p>In order to demonstrate CI, we will need to do commits/PRs to a repo and also need to transition code from one branch to another to trigger builds. We cannot use a shared repo during demos as we need to prevent jobs triggering on another jenkins instance pointing to the same repo. We also shouldn&#39;t clutter the commit history of this repo with test commits we will make during demos.</p>
+<p>So fork this repo either to your own GitLab account or clone the repo locally and push it back to another git server, e.g. GitHub.</p>
+<p>Go to <a href="https://github.com/apigee/maven-jenkins-ci-demo" target="_blank">https://github.com/apigee/maven-jenkins-ci-demo</a></p>
+<p>Login with your Github Account</p>
+<p>Fork the repository to your repository. This repo can be public or private.</p>
+<p class="image-container"><img alt="image alt text" src="img/ccb136edcf4be890.png"></p>
+<p>Rename the repository to fit your topic</p>
+<p class="image-container"><img alt="image alt text" src="img/20a33a220d62bcc6.png"></p>
+<p class="image-container"><img alt="image alt text" src="img/f57b1525c2e16d91.png"></p>
+<p>Change git server url for origin to point to the new repo in GitHub</p>
+<pre><code>git remote set-url origin &lt;github-repo-ssh-url&gt;
+</code></pre>
+<p>Clone the new repo to your machine</p>
+<pre><code>git clone &lt;github-repo-ssh-url&gt;
+</code></pre>
+<p>On your local machine go to the folder for the demo</p>
+<pre><code>Cd ci-demo-walkthrough
+</code></pre>
+<p>Push code to the new repo in GitHub</p>
+<pre><code>git push
+Everything up-to-date
+</code></pre>
+<p>Use your local fork for below steps.</p>
+<h2 is-upgraded>Configure Branches</h2>
+<p>We only need the master and a prod branch for this demonstration - the idea is to have a branch per environment.</p>
+<p>Delete all other branches apart from master branch in your forked repo</p>
+<p>Setup a prod branch</p>
+<pre><code>git checkout -b prod
+git push origin prod
+git checkout master
+</code></pre>
+<h2 is-upgraded>Create Jenkins image</h2>
+<p>Project includes a <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/docs/Dockerfile" target="_blank">Dockerfile</a> that creates a Docker image using Jenkins official Docker image as base. It also sets up required Jenkins plugins and copies job configurations to the image.</p>
+<pre><code>docker build --no-cache -t apigee/ci-demo-walkthrough .
+</code></pre>
+<p>A new docker image called apigee/ci-demo-walkthrough will be created. This takes a while. Take a note of the output, which is the public ssh key we are using in the next step.</p>
+<p class="image-container"><img alt="image alt text" src="img/4f6e0a1c879cdcad.png"></p>
+<h2 is-upgraded>Setup git ssh access</h2>
+<p>This project uses ssh public/private key pairs in order to authenticate the jenkins user to git server. <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/docs/faq.md#why-ssh-for-git-authentication" target="_blank">Why?</a></p>
+<p>At the end of the image creation process, Dockerfile generates and prints out a new public key that you can setup to give jenkins push/pull access to your repo.</p>
+<p>If you pushed the project files to your GitHub account, then go to your repo and within Settings click Deploy Keys on the left-hand menu. Next Add deploy key Give it a meaningful name under Title, copy/paste the contents of the public key as a new key and enable Allow write access option. And finally hit Add key</p>
+<p class="image-container"><img alt="image alt text" src="img/6903c1bbf4c14641.png"></p>
+<p>See <a href="https://developer.github.com/guides/managing-deploy-keys/#deploy-keys" target="_blank">GitHub Deploy Keys Documentation</a></p>
+<h2 is-upgraded>Run image</h2>
+<aside class="special"><p>Note: remove any previous currency-v1 deployments from the Apigee org in order to demonstrate proxies created successfully with correct revision numbers.</p>
+</aside>
+<p>All parameters required to run Jenkins and Maven are supplied using environment variables. These variables are set directly to the docker container with the docker run command.</p>
+<p>There is a script provided to make this process easier which can be found <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/docs/setup/run-image.sh" target="_blank">here</a>. Modify this script to provide values specific to your setup and execute the script to run the image.</p>
+<p>Please note that setup/run-image.sh script is in source control. Copy this file to setup/.run-image.sh before making any changes to prevent sensitive data committed to this repo. Root .gitignore file contains a directive to ignore any changes to setup/.run-image.sh.</p>
+<p>Go to the cloned folder</p>
+<pre><code>cp ./setup/run-image.sh ./setup/.run-image.sh
+</code></pre>
+<p>Modify the file and plug in your environment data:</p>
+<pre><code>vim ./setup/.run-image.sh
+</code></pre>
+<p>You get that data from your Apigee Account. You can look it up by going to your helloworld proxy.</p>
+<p class="image-container"><img alt="image alt text" src="img/563ddeaefbdb0d0d.png"></p>
+<aside class="special"><p>Note: Also change the port to 8080 if you are working on a Chromebook as the port 9001 cannot be used by docker containers.</p>
+</aside>
+<p>You can also have to change the name to match the one of your docker images. Change apigee/ci to apigee/ci-demo-walkthrough and also replace my-ci with a unique name that does not match another container running on your machine.</p>
+<p class="image-container"><img alt="image alt text" src="img/56a2f5c9efba6029.png"></p>
+<p>A Description of the fields is within the file. After done with the modification run the script.</p>
+<pre><code>. ./setup/.run-image.sh
+</code></pre>
+<p>Script will output the docker container hash.</p>
+<h2 is-upgraded>Access Jenkins</h2>
+<p>Fire up a browser and hit http://localhost:8080 to access Jenkins UI.</p>
+<p>Your setup is successful if you see Jenkins with this picture (notice the color of the circles). Give it a couple of minutes to start and the grey circle to turn blue (except the &#34;currency-v1-features&#34;)</p>
+<p class="image-container"><img alt="image alt text" src="img/437835e3fe07eb8e.png"></p>
+<p>Please note that Jenkins will start all jobs upon start as it is configured to trigger each job every minute <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/docs/faq.md#why-not-git-web-hooks" target="_blank">why not git web hooks?</a>. Master and prod jobs should succeed but feature job will fail as we don&#39;t have a feature branch yet.</p>
+<p>Please follow <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/docs/usage.md" target="_blank">usage</a> to see Jenkins in action.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="CI/CD Demo Overview" duration="0">
+        <p>This document assumes you have followed the <a href="https://github.com/flogei/ci-demo-walkthrough/blob/master/docs/setup.md" target="_blank">setup</a> procedures and have a running Jenkins instance using Docker.</p>
+<p>We are going to show a sample process of how CI/CD could look like.</p>
+<ol type="1">
+<li>Create a new branch for our new feature</li>
+<li>A developer builds and tests locally</li>
+<li>A developer commits changes to the feature branch</li>
+<li>Jenkins builds the branch and pushes it to the respective Apigee Environment</li>
+<li>We promote the feature branch to master</li>
+<li>Jenkins pushes the branch to Apigee production environment</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setup for our Feature development" duration="0">
+        <p>Right now we have 2 branches: master and prod</p>
+<p class="image-container"><img alt="image alt text" src="img/ad7f31dbd688ccbf.png"></p>
+<p>You can also check on the command line with</p>
+<pre><code>Git branch
+* master
+  prod
+</code></pre>
+<p>As a developer we now want to work on a new feature for our API proxy and therefore we create a new feature branch called <em>feature/1</em> from master branch</p>
+<pre><code>git checkout -b feature/1
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Local Testing" duration="0">
+        <p>Let&#39;s simulate the steps a proxy developer would take to test their changes before they want a merge request or code review. Ideally the proxy developer can deploy multiple times until all tests pass and they are ready for merge request or code review. For this reason, we don&#39;t commit directly to the feature branch– we don&#39;t want to clutter the Git log history, and we also don&#39;t want to rely on Jenkins just yet. Deploy and test your changes below, just as a proxy developer would from their local machine:</p>
+<pre><code>cd currency-v1
+mvn install -Ptest -Denv.APIGEE_ORG={ORG} -Denv.APIGEE_USERNAME={username} -Denv.APIGEE_PASSWORD={password} -Denv.API_DOMAIN_TEST={apigee_proxy_domain}
+</code></pre>
+<p>Note that -Denv.API_DOMAIN_TEST is the same API_DOMAIN_TEST you&#39;ve defined in your .run-image.sh file. If you don&#39;t want to pass that many arguments to maven, you can add those properties to your settings file <em>~/.m2/settings.xml</em>:</p>
+<pre><code>&lt;profile&gt;
+    &lt;id&gt;test&lt;/id&gt;
+    &lt;properties&gt;
+        &lt;!-- these settings are for maven-jenkins-ci-demo --&gt;
+        &lt;env.APIGEE_ORG&gt;...&lt;/env.APIGEE_ORG&gt;
+        &lt;env.APIGEE_USERNAME&gt;...&lt;/env.APIGEE_USERNAME&gt;
+        &lt;env.APIGEE_PASSWORD&gt;...&lt;/env.APIGEE_PASSWORD&gt;
+        &lt;env.API_DOMAIN_TEST&gt;...&lt;/env.API_DOMAIN_TEST&gt;
+    &lt;/properties&gt;
+&lt;/profile&gt;
+</code></pre>
+<p>If you decide to go with the settings file approach, you can just execute this command instead of the above long maven command:</p>
+<pre><code>mvn install -Ptest
+</code></pre>
+<aside class="special"><p>Note: If you have a Build failure with a NullPointException you have most likely missed some variables</p>
+</aside>
+<p>This command outputs the maven build process and is a good point to look through the different steps taken here:</p>
+<ul>
+<li>Bundle up the files to a zip file</li>
+<li>Upload it via the management API</li>
+<li>Run Integration Tests</li>
+</ul>
+<p>This command will deploy the bundle to test environment as currency-v1. Description of the proxy will be set to commit from a local branch by .</p>
+<p>Take a look at your Apigee Organization and see that there now is a proxy with the described name.</p>
+<p class="image-container"><img alt="image alt text" src="img/61245a8e7f9abd0f.png"></p>
+<p>Now that we see all tests were successful, commit your changes to the feature branch.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Commit changes to feature branch" duration="0">
+        <p>Before committing our previous changes that we know were working, we do something that&#39;s not recommended. And that&#39;s making a change we haven&#39;t tested locally, because we feel a little cheeky.</p>
+<p>We will make a change to one of the JavaScripts files that will contain an error. Assuming you are still in the currency-v1 folder we make a change to ConfigureTargetRequest.js</p>
+<pre><code>vim apiproxy/resources/jsc/ConfigureTargetRequest.js
+</code></pre>
+<p>At the end of the file just insert a wrong JS statement like &#34;if(}&#34; and save the file.</p>
+<p>Now we are not testing it locally with our own proxy version but rather commit the change to the feature branch more developers could be working with.</p>
+<pre><code>git commit -am &#34;Improvement to ConfigureTargetRequest Script&#34;
+</code></pre>
+<p>Push feature branch to remote.</p>
+<pre><code>git push origin feature/1
+</code></pre>
+<p>You will see at this point that Jenkins will automatically start currency-v1-features job which will deploy the bundle as currency-jenkinsv1 to test environment.</p>
+<p class="image-container"><img alt="image alt text" src="img/5278675b21665bcb.png"></p>
+<aside class="special"><p>Note: If Jenkins does not automatically start the job after a while click the clock icon to the right to trigger the job.</p>
+</aside>
+<p>After a short time you will see the job has failed and the <strong>Last Failure</strong> is set to a recent time. Click on the Job number <strong>#2</strong> (or any number after the hash sign) next to it to open the job details</p>
+<p>In the menu click <strong>Console Output</strong>. Here you can see the error that has happened with the build. Obviously someone did not close an if-statement properly and the linting process found that error early on.</p>
+<p class="image-container"><img alt="image alt text" src="img/9598460d6f0c0291.png"></p>
+<p>Now lets correct that error again and remove that mistake in our ConfigureTargetRequest.js file and maybe just add a comment to it.</p>
+<pre><code>vim apiproxy/resources/jsc/ConfigureTargetRequest.js
+</code></pre>
+<p>And again we commit our changes to the feature branch.</p>
+<pre><code>git commit -am &#34;Improvement to ConfigureTargetRequest Script&#34;
+git push origin feature/1
+</code></pre>
+<p>Switch back to Jenkins to see the status of the build process and after some time we should see the features branch with a blue circle and a <strong>Last Success</strong> date.</p>
+<p class="image-container"><img alt="image alt text" src="img/852dcd1ffc5d76de.png"></p>
+<p>In Apigee we now see the <em>currency-jenkinsv1</em> proxy deployed with the description of the proxy set to commit  from feature/1 branch by jenkins.</p>
+<p class="image-container"><img alt="image alt text" src="img/d35d2c18d4ec037a.png"></p>
+<p><strong>Merge to master (using the UI)</strong></p>
+<p>Now that the feature is complete, we create a pull request from feature branch to master.</p>
+<aside class="special"><p>Note: Even though this is not a must-have but it is good to demonstrate a best-practice team development scenario where merge/pull requests are used for review/discussion of features before they are merged to master branch. If there are no conflicts, Github makes it particularly easy to merge from a pull request.</p>
+</aside>
+<p>In github open the <strong>Pull requests</strong> tab and create a <strong>new pull request</strong></p>
+<p class="image-container"><img alt="image alt text" src="img/e9add586f6d9c529.png"></p>
+<p>Make sure to select the <strong>master</strong> as a base and your <strong>feature/v1</strong> branch as the branch to merge from. You can also see the commits we have done in that feature branch incl. our comments. Click <strong>Create pull request</strong> once you are done reviewing</p>
+<p class="image-container"><img alt="image alt text" src="img/9ed05ff3a94612e0.png"></p>
+<p>Now you can put some comments about your pull request and also have the option to put in reviewers or other attributes to that pull request. Click <strong>Create pull request</strong> to finish your pull request.</p>
+<p class="image-container"><img alt="image alt text" src="img/f4e5b901bf80997c.png"></p>
+<p>Now that the pull request is created that&#39;s where it is a good practice to let some else approve your changes before we put the feature into the master branch. In that case we would switch hats to the lead developer and <strong>Merge pull request</strong> and click on <strong>Confirm merge</strong> after the review to put the changes into our master branch.</p>
+<p class="image-container"><img alt="image alt text" src="img/d2c697a3e8c42c4d.png"></p>
+<h2 is-upgraded>Merge to master (alternative to UI pull request and merge)</h2>
+<p>If you&#39;d like to manually do a merge, you can do so locally from shell:</p>
+<pre><code>git checkout master
+git merge --no-ff feature/1
+git push
+</code></pre>
+<p>and the 2 last steps to cleanup the feature branch both locally and on your remote:</p>
+<pre><code>git branch -d feature/1
+git push origin :feature/1
+</code></pre>
+<h2 is-upgraded>Deploy master branch to test environment</h2>
+<p>You will see at this point that Jenkins will automatically start currency-v1-master job which will deploy the bundle as currency-v1 to test environment.</p>
+<p>Description of the proxy will be set to commit  from master branch by jenkins.</p>
+<p class="image-container"><img alt="image alt text" src="img/789c3508d1552f3.png"></p>
+<h2 is-upgraded>Automatically deploy master branch to prod environment (Continuous Delivery)</h2>
+<p>Continuous Delivery may or may not work for you and your company. Often other internal teams want to test at various stages of the API proxy SDLC. In those situations, automatic promotion on successful tests may not be the best option. But if CD works for you and your company, this is 1 way it could work.</p>
+<p>Once currency-v1-master job is completed successfully, it will automatically merge master to prod branch which will trigger currency-v1-prod Jenkins job.</p>
+<p class="image-container"><img alt="image alt text" src="img/20b978f7a95623.png"></p>
+<p>Production job will deploy the bundle as currency-v1 on prod environment and the description of the proxy will be set to commit  from master branch by jenkins.</p>
+<p>Finally you can see that prod and dev have different revisions deployed that reflect our GitHub repository.</p>
+<p class="image-container"><img alt="image alt text" src="img/fc8beed21fc95050.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Summary" duration="0">
+        <p>In this demo we have showed how to use Jenkins alongside other Apigee Open source projects like Apickli, Apigee Maven plugin to build a CI/CD pipeline to deploy to Apigee.</p>
+<h2 class="checklist" is-upgraded>What we&#39;ve covered</h2>
+<ul class="checklist">
+<li>Setup a new feature branch</li>
+<li>Commit changes to the branch</li>
+<li>Create a pull request for the feature branch</li>
+<li>Merge the feature branch into master after quality review</li>
+<li>Demonstrate continuous deployment by promoting the master branch to production</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

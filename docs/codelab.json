@@ -1,0 +1,21 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-09-04T12:17:36+02:00",
+  "id": "maven-jenkins-ci-demo",
+  "duration": 0,
+  "title": "Continuous Integration for Apigee Proxies using Maven",
+  "summary": "The objective of this project is to implement a containarised framework that can be used to demonstrate best practices around continuous integration for Apigee projects.",
+  "source": "docs/docs.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": null,
+  "tags": [
+    "apigee"
+  ],
+  "url": "maven-jenkins-ci-demo"
+}
