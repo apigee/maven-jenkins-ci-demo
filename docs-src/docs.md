@@ -300,6 +300,8 @@ vim apiproxy/resources/jsc/ConfigureTargetRequest.js
 
 At the end of the file just insert a wrong JS statement (e.g. "if(}") and save the file.
 ```
+// Trimmed the rest of the file...
+
 * limitations under the License.
 */
 context.setVariable('target.copy.pathsuffix', false);
