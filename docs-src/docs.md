@@ -270,14 +270,14 @@ mvn install -Ptest
 ```
 
 Positive
-: Note: If you have a Build failure with a NullPointException you have most likely missed some variables
+: Note: If you have a Build failure with a NullPointerException you have most likely missed some variables
 
 This command outputs the maven build process and is a good point to look through the different steps taken here:
 
+* Linting (you will see jshint in the logs near the start)
+* Unit Testing (unit testing is done with mocha)
 * Bundle up the files to a zip file
-
 * Upload it via the management API
-
 * Run Integration Tests
 
 This command will deploy the bundle to test environment as currency-<yourname>v1. Description of the proxy will be set to commit from a local branch by <your-name>.
@@ -298,7 +298,15 @@ We will make a change to one of the JavaScripts files that will contain an error
 vim apiproxy/resources/jsc/ConfigureTargetRequest.js
 ```
 
-At the end of the file just insert a wrong JS statement like "if(}" and save the file.
+At the end of the file just insert a wrong JS statement (e.g. "if(}") and save the file.
+```
+* limitations under the License.
+*/
+context.setVariable('target.copy.pathsuffix', false);
+
+if(}
+```
+
 
 Now we are not testing it locally with our own proxy version but rather commit the change to the feature branch more developers could be working with.
 
@@ -375,7 +383,7 @@ If you'd like to manually do a merge, you can do so locally from shell:
 
 ```
 git checkout master
-git merge --no-ff feature/1
+git merge feature/1
 git push
 ```
 
