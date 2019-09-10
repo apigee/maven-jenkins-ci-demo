@@ -13,6 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-context.setVariable('target.copy.pathsuffix', false);
-
-somethigngfgh 
+context.setVariable('target.copy.pathsuffix', false); 
