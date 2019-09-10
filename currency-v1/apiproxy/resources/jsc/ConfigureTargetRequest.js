@@ -14,5 +14,3 @@
  * limitations under the License.
 */
 context.setVariable('target.copy.pathsuffix', false);
-
-if(})
