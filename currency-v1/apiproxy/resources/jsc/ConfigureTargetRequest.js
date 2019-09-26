@@ -15,6 +15,5 @@
 */
 context.setVariable('target.copy.pathsuffix', false);
 
-if(x
-
+context.setVariable('custom.sean', 'awesome');
 
