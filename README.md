@@ -40,7 +40,7 @@ See [maven phases](./docs-src/maven-phases.md) document to understand pom struct
 
 ### Dockerfile
 
-Project contains a [Dockerfile](./docker/Dockerfile) that can be used to create
+Project contains a [Dockerfile](./Dockerfile) that can be used to create
 a Jenkins image ready to start deploying currency api.
 
 Docker implementation performs the following operations:
