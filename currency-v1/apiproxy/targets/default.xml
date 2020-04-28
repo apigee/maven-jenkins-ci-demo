@@ -56,7 +56,7 @@
 	</PostFlow>
 
 	<HTTPTargetConnection>
-		<URL>https://frankfurter.app</URL>
+		<URL>https://api.frankfurter.app</URL>
 	</HTTPTargetConnection>
 
 </TargetEndpoint>
