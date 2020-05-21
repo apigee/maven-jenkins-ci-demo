@@ -240,7 +240,7 @@
 						<configuration>
 							<executable>./node_modules/cucumber/bin/cucumber.js</executable>
 							<commandlineArgs>
-								target/test/integration/features --tags ${api.testtag}
+								target/test/integration/features &#45;&#45;tags ${api.testtag}
 							</commandlineArgs>
 						</configuration>
 					</execution>
