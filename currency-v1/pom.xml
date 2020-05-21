@@ -32,6 +32,7 @@
 		<deployment.suffix>${user.name}</deployment.suffix>
 		<commit></commit>
 		<branch>a local</branch>
+		<skipTests>true</skipTests>
 	</properties>
 
 	<!-- This is where you add the environment specific properties under various profile names -->
@@ -216,7 +217,7 @@
 						</configuration>
 					</execution>
 					<!-- run unit tests -->
-					<execution>
+				<!--	<execution>
 						<id>unit</id>
 						<phase>validate</phase>
 						<goals>
@@ -229,8 +230,8 @@
 							</commandlineArgs>
 						</configuration>
 					</execution>
-					<!-- run integration tests -->
-					<execution>
+				-->	<!-- run integration tests -->
+				<!--	<execution>
 						<id>integration</id>
 						<phase>install</phase>
 						<goals>
@@ -243,7 +244,8 @@
 							</commandlineArgs>
 						</configuration>
 					</execution>
-				</executions>
+-->				
+</executions>
 			</plugin>
 
 			<!-- cleaning dirs -->
