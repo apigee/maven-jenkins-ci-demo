@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.150.1
+FROM jenkins/jenkins:lts 
 
 # install jenkins plugins
 COPY --chown=jenkins:jenkins ./docker/jenkins/plugins /usr/share/jenkins/plugins
@@ -17,7 +17,7 @@ COPY --chown=jenkins:jenkins docker/jenkins/hudson.tasks.Maven.xml /var/jenkins_
 ADD --chown=jenkins:jenkins docker/jenkins/jenkins-entrypoint.sh /usr/local/bin/jenkins-entrypoint.sh
 
 # copy git ssh files
-COPY docker/ssh/config /var/jenkins_home/.ssh/config
+COPY --chown=jenkins:jenkins docker/ssh/config /var/jenkins_home/.ssh/config
 
 USER root
 
@@ -44,12 +44,16 @@ RUN chmod 400 /usr/share/jenkins/ssh/id_rsa
 # make custom entry point script executable
 RUN chmod +x /usr/local/bin/jenkins-entrypoint.sh
 
+
+
 # warm apt-get cache
 RUN apt-get update
 
 # install node.js
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
+
+RUN apt-get install -y vim
 
 USER jenkins
 ENV JAVA_OPTS "-Djenkins.install.runSetupWizard=false"
