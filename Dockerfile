@@ -1,11 +1,8 @@
-FROM jenkins/jenkins:2.150.1
+FROM jenkins/jenkins:2.233
 
 # install jenkins plugins
 COPY --chown=jenkins:jenkins ./docker/jenkins/plugins /usr/share/jenkins/plugins
-COPY --chown=jenkins:jenkins ./third_party/jenkinsci/docker/install-plugins.sh /usr/share/jenkins/install-plugins.sh
-RUN while read i ; \ 
-		do /usr/share/jenkins/install-plugins.sh $i ; \
-	done < /usr/share/jenkins/plugins
+RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins
 
 # copy jenkins jobs
 ADD --chown=jenkins:jenkins docker/jenkins/jobs /usr/share/jenkins/jobs
@@ -48,7 +45,7 @@ RUN chmod +x /usr/local/bin/jenkins-entrypoint.sh
 RUN apt-get update
 
 # install node.js
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs
 
 USER jenkins
