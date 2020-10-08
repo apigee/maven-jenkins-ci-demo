@@ -6,10 +6,6 @@
 		<QueryParams/>
 		<FormParams/>
 		<Payload>true</Payload>
-		<Verb/>
-		<Version/>
-		<StatusCode/>
-		<ReasonPhrase/>
-		<Path/>
+		
 	</Copy>
 </AssignMessage>

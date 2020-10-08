@@ -39,11 +39,11 @@ Variable definitions:
         Example: git@github.com:seymen/currency-v1.git
 '
 
-docker run -d -p 9001:8080 \
-	-e APIGEE_ORG=. \
-	-e APIGEE_USERNAME=. \
-	-e APIGEE_PASSWORD=. \
-	-e API_DOMAIN_TEST=. \
-	-e API_DOMAIN_PROD=. \
-	-e SCM_URL=. \
---name my-ci apigee/ci
+docker run -d -p 9005:8080 \
+	-e APIGEE_ORG=bipind-eval \
+	-e APIGEE_USERNAME=bipind@google.com \
+	-e APIGEE_PASSWORD=Apigee123# \
+	-e API_DOMAIN_TEST=bipind-eval-test.apigee.net \
+	-e API_DOMAIN_PROD=bipind-eval-prod.apigee.net \
+	-e SCM_URL=github.com/bipindebbad/maven-jenkins-ci-demo.git \
+--name my-ci10 apigee/ci2
